@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="box">
+    <ion-list>
+      <ion-item>
+        <ion-input [(ngModel)]="correo" label="Correo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="contrasena" label="Contraseña"></ion-input>
+      </ion-item>
+
+    </ion-list>
+    <!-- 'inicio/:numero', -->
+    <ion-button [routerLink]="['/inicio/' + 100]">Acceder</ion-button>
+    <ion-button  (click)="login()"> Recuperar contraseña</ion-button>
+  </div>
