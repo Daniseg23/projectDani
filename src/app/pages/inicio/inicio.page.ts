@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
+yourFunction() {
+throw new Error('Method not implemented.');
+}
   
   correo: string = "";
   activateRouter: any;
@@ -17,6 +20,9 @@ export class InicioPage implements OnInit {
   ngOnInit() {
     this.correo = this.activateRouter.snapshot.params["correo"];
     console.log("PARAMETRO URL ---> ", this.correo);
+  }
+  clickFunction() {
+    console.log('Card clicked!');
   }
 
 }
