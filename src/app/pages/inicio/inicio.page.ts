@@ -1,6 +1,7 @@
 //En este apartado se crean funciones
 //Se crean métodos
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -8,14 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
-yourFunction() {
-throw new Error('Method not implemented.');
-}
   
   correo: string = "";
   activateRouter: any;
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
     this.correo = this.activateRouter.snapshot.params["correo"];
@@ -23,6 +21,10 @@ throw new Error('Method not implemented.');
   }
   clickFunction() {
     console.log('Card clicked!');
+  }
+
+  clickFunctionPerfil() {
+    this.router.navigate(['/perfil']);
   }
 
 }
