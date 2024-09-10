@@ -27,4 +27,16 @@ export class InicioPage implements OnInit {
     this.router.navigate(['/perfil']);
   }
 
+  clickFunctionViaje() {
+    this.router.navigate(['/viaje']);
+  }
+
+  clickFunctionVehiculo() {
+    this.router.navigate(['/vehiculo']);
+  }
+
+  clickFunctionAyuda() {
+    this.router.navigate(['/ayuda']);
+  }
+
 }
