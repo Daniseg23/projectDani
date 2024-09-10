@@ -12,4 +12,8 @@ export class VehiculoPage implements OnInit {
   ngOnInit() {
   }
 
+  clickFunction() {
+    console.log('Card clicked!');
+  }
+
 }
