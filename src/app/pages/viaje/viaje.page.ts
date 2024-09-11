@@ -1,6 +1,7 @@
 //En este apartado se hacen los métodos
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viaje',
@@ -8,9 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./viaje.page.scss'],
 })
 export class ViajePage implements OnInit {
-  router: any;
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
@@ -22,19 +22,19 @@ export class ViajePage implements OnInit {
   }
 
   clickPerfil(){
-    this.router.navigate(["/perfil"])
+    this.router.navigate(['/perfil'])
   }
 
   clickVehiculo(){
-    this.router.navigate(["/vehiculo"])
+    this.router.navigate(['/vehiculo'])
   }
 
   clickAyuda(){
-    this.router.navigate(["/ayuda"])
+    this.router.navigate(['/ayuda'])
   }
 
   clickInicio(){
-    this.router.navigate(["/inicio"])
+    this.router.navigate(['/inicio'])
   }
 
 }

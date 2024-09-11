@@ -14,19 +14,19 @@ export class PerfilPage implements OnInit {
   }
 
   clickViaje(){
-    this.router.navigate(["/viaje"])
+    this.router.navigate(['/viaje'])
   }
 
   clickVehiculo(){
-    this.router.navigate(["/vehiculo"])
+    this.router.navigate(['/vehiculo'])
   }
 
   clickAyuda(){
-    this.router.navigate(["/ayuda"])
+    this.router.navigate(['/ayuda'])
   }
 
   clickInicio(){
-    this.router.navigate(["/inicio"])
+    this.router.navigate(['/inicio'])
   }
 
 }

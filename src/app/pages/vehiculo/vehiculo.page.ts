@@ -18,20 +18,20 @@ export class VehiculoPage implements OnInit {
     console.log('Card clicked!');
   }
 
-  clickViaje(){
-    this.router.navigate(["/viaje"])
+  clickPerfil(){
+    this.router.navigate(['/perfil'])
   }
 
-  clickVehiculo(){
-    this.router.navigate(["/vehiculo"])
+  clickViaje(){
+    this.router.navigate(['/viaje'])
   }
 
   clickAyuda(){
-    this.router.navigate(["/ayuda"])
+    this.router.navigate(['/ayuda'])
   }
 
   clickInicio(){
-    this.router.navigate(["/inicio"])
+    this.router.navigate(['/inicio'])
   }
 
 }
