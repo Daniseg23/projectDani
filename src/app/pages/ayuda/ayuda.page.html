@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  <!-- Definir el menú lateral -->
   <ion-menu contentId="main-content">
     <ion-header>
       <ion-toolbar>
@@ -16,10 +16,8 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-
-      <!--inicio de opciones de menu-->
       <ion-list>
-        <ion-item button (click)="clickPerfil()" >
+        <ion-item button (click)="clickPerfil()">
           <ion-label>Perfil</ion-label>
         </ion-item>
         <ion-item button (click)="clickViaje()">
@@ -32,10 +30,9 @@
           <ion-label>INICIO</ion-label>
         </ion-item>
       </ion-list>
-      <!--fin de opciones de menu-->
-
     </ion-content>
   </ion-menu>
+
   <div class="ion-page" id="main-content">
     <ion-header>
       <ion-toolbar>
@@ -53,23 +50,48 @@
           <ion-card-header>
             <ion-card-subtitle>Contáctanos</ion-card-subtitle>
           </ion-card-header>
+
           <ion-card-content>
-            <ion-list>
+            <ion-list>         
               <ion-item>
-                  <ion-icon name="call-outline"></ion-icon>
+                <ion-icon name="call-outline"></ion-icon>
                 <ion-label class="spaced-label">+56912345678</ion-label>
               </ion-item>
-        
-              <ion-item>
-                  <ion-icon name="mail-outline"></ion-icon>
-                <ion-label class="spaced-label">usuarioQduocuc.cl</ion-label>
-              </ion-item>
 
+              <ion-item>
+                <ion-icon name="mail-outline"></ion-icon>
+                <ion-label class="spaced-label">usuarioQduocuc.cl</ion-label>
+              </ion-item> 
             </ion-list>
           </ion-card-content>
         </ion-card>
       </div>
+
+      <!-- Contenedor para centrar el botón -->
+      <div style="display: flex; justify-content: center; align-items: center; height: 30%; position: relative;">
+        <ion-button id="modal-trigger" style="position: absolute; bottom: 20px;">Ubicación</ion-button>
+      </div>
+
+      <!-- Aquí integramos el contenido del modal -->
+      <ion-modal trigger="modal-trigger" #modal>
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Ubicación</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="closeModal()">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3327.049828297277!2d-70.61886772343382!3d-33.50008070005705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662d00be4a5fa81%3A0xcd8eaf5b1d547f64!2sDuoc%20UC%3A%20Sede%20San%20Joaqu%C3%ADn!5e0!3m2!1ses!2scl!4v1726038621245!5m2!1ses!2scl" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <ion-card-subtitle class="centered-subtitle">
+              Av. Vicuña Mackenna 4917, 8970117 San Joaquín, Región Metropolitana
+            </ion-card-subtitle>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+      
     </ion-content>
   </div>
-
 </ion-content>
