@@ -46,9 +46,9 @@
           <ion-title>Menu</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding"> Tap the button in the toolbar to open the menu. </ion-content>
     </div>
 
+<<<<<<< Updated upstream
     <ion-content>
       <!--Inicio de las card con fondo-->
       <ion-content style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgb(255, 255, 255)); padding: 20px 0px;">
@@ -73,5 +73,40 @@
       </ion-card>
     </ion-content>
   
+=======
+    <ion-card style="position: relative; margin: 3px; margin-bottom: 35px;" >
+      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png"/>
+      <div class="descripcionListaVehiculo">
+        Todos los vehículos registrados se mostrarán en esta sección.
+      </div>
+    </ion-card>
+
+    <div *ngIf="misVehiculos.length === 0" style="text-align: center; margin-top: 20px;">
+      <p style="font-size: 20px; font-weight: bold; margin-top: -10px; background-color: rgb(59, 59, 59); color: white;">No hay vehículos registrados en tu cuenta</p>
+    </div>
+
+    <ion-card button (click)="clickFunction()" *ngFor="let vehiculo of misVehiculos" style="margin-top: -20px; margin-left: 5px; margin-right: 10px; height: 100px;">
+      <ion-card-header>
+        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" style="position: absolute; height: 90px; width: 160px; margin-bottom: -75px; margin-left: -15px;"/>
+      </ion-card-header>
+      <ion-card-content style="height: 90px;flex: 1; margin-left: 166px; margin-right: 5px; margin-top: -31px; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(78, 78, 78, 0.37));">
+        <p class="infoVehiculoCard">Marca: {{ vehiculo.marca }}</p>
+        <p class="infoVehiculoCard">Modelo: {{ vehiculo.modelo }}</p>
+        <p class="infoVehiculoCard">Patente: {{ vehiculo.patente }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- 
+    <ion-card button (click)="clickFunction()" *ngIf="vehiculoRegistrado" style="margin-top: -20px;margin-left: 5px; margin-right: 10px; height: 100px;">
+      <ion-card-header>
+        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" style="position: absolute; height: 90px; width: 160px; margin-bottom: -75px; margin-left: -15px;"/>
+      </ion-card-header>
+    </ion-card>
+      -->
+
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+      <ion-button [routerLink]="['/agregar-auto/']" class="botonDesign" shape="round">Agregar Vehiculo </ion-button>
+    </div>
+>>>>>>> Stashed changes
     
   </ion-content>
