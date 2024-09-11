@@ -1,5 +1,3 @@
-
-
 <ion-content [fullscreen]="true">
 
   <!-- Contenido principal -->
@@ -11,7 +9,7 @@
   </ion-header>
 
   <ion-content>
-    <!--Inicio de las tarjetas-->
+    <!--Inicio de las card-->
     <div style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgb(255, 255, 255)); padding: 20px 0px;" > 
       <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
         <ion-card style="width: 180px; height: 230px; margin: 0;" button (click)="clickFunctionPerfil()">
@@ -19,9 +17,6 @@
           <ion-card-header>
             <ion-card-title style="display: flex; justify-content: center">Perfil</ion-card-title>
           </ion-card-header>
-          <ion-card-content>
-            Here's a small text description for the card content. Nothing more, nothing less.
-          </ion-card-content>
         </ion-card>
 
         <ion-card style="width: 180px; height: 230px; margin: 0;" button (click)="clickFunctionViaje()">
@@ -29,9 +24,6 @@
           <ion-card-header>
             <ion-card-title style="display: flex; justify-content: center">Viaje</ion-card-title>
           </ion-card-header>
-          <ion-card-content>
-            Here's a small text description for the card content. Nothing more, nothing less.
-          </ion-card-content>
         </ion-card>
 
         <ion-card style="width: 180px; height: 230px; margin: 0;" button (click)="clickFunctionVehiculo()">
@@ -39,9 +31,6 @@
           <ion-card-header>
             <ion-card-title style="display: flex; justify-content: center">Vehiculo</ion-card-title>
           </ion-card-header>
-          <ion-card-content>
-            Here's a small text description for the card content. Nothing more, nothing less.
-          </ion-card-content>
         </ion-card>
 
         <ion-card style="width: 180px; height: 230px; margin: 0;" button (click)="clickFunctionAyuda()">
@@ -49,17 +38,14 @@
           <ion-card-header>
             <ion-card-title style="display: flex; justify-content: center">Ayuda</ion-card-title>
           </ion-card-header>
-          <ion-card-content>
-            Here's a small text description for the card content. Nothing more, nothing less.
-          </ion-card-content>
         </ion-card>
       </div>
     </div>
-    <!--Fin las tarjetas-->
+    <!--Fin las card-->
 
     <!--INICIO Botton cerrar sesion-->
     <div style="display: flex; justify-content: center; margin-top: 50px;">
-      <ion-button class="cerrarSesion" shape="round">Cerrar sesion </ion-button>
+      <ion-button (click)="cerrarSesion()" shape="round">Cerrar sesión </ion-button>
     </div>
     <!--FIN Botton cerrar sesion-->
 

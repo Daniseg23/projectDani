@@ -39,4 +39,8 @@ export class InicioPage implements OnInit {
     this.router.navigate(['/ayuda']);
   }
 
+  cerrarSesion(){
+    this.router.navigateByUrl('/login')
+  }
+
 }

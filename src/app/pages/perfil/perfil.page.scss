@@ -1,10 +1,10 @@
 .circular-image {
     width: 100px;
     height: 100px;
-    border-radius: 50%; /* La imagen en un círculo */
-    object-fit: cover; /* Esto hace que la imagen se adapte al contenedor */
+    border-radius: 50%; 
+    object-fit: cover;
     display: block;
-    margin: 0 auto; /* Centra la imagen*/
+    margin: 0 auto;
 }
 
 .spaced-label {
