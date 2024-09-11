@@ -18,7 +18,27 @@
         <ion-title>Menu Content</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">This is the menu content.</ion-content>
+    <ion-content class="ion-padding">
+
+      <!--inicio de opciones de menu-->
+      <ion-list>
+        <ion-item button (click)="clickViaje()" >
+          <ion-label>Viaje</ion-label>
+        </ion-item>
+        <ion-item button (click)="clickVehiculo()">
+          <ion-label>Vehiculo</ion-label>
+        </ion-item>
+        <ion-item button (click)="clickAyuda()">
+          <ion-label>Ayuda</ion-label>
+        </ion-item>
+        <ion-item button (click)="clickInicio()">
+          <ion-label>INICIO</ion-label>
+        </ion-item>
+      </ion-list>
+      <!--fin de opciones de menu-->
+      
+    </ion-content>
+
   </ion-menu>
   <div class="ion-page" id="main-content">
     <ion-header>

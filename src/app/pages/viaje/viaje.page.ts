@@ -21,4 +21,20 @@ export class ViajePage implements OnInit {
     this.router.navigateByUrl('viajes')
   }
 
+  clickPerfil(){
+    this.router.navigate(["/perfil"])
+  }
+
+  clickVehiculo(){
+    this.router.navigate(["/vehiculo"])
+  }
+
+  clickAyuda(){
+    this.router.navigate(["/ayuda"])
+  }
+
+  clickInicio(){
+    this.router.navigate(["/inicio"])
+  }
+
 }
