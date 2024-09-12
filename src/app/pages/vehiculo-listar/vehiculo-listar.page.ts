@@ -5,11 +5,11 @@ import { Vehiculo } from 'src/app/services/servicios.service'; //ESTO FUE CLAVE 
 
 
 @Component({
-  selector: 'app-vehiculo',
-  templateUrl: './vehiculo.page.html',
-  styleUrls: ['./vehiculo.page.scss'],
+  selector: 'app-vehiculo-listar',
+  templateUrl: './vehiculo-listar.page.html',
+  styleUrls: ['./vehiculo-listar.page.scss'],
 })
-export class VehiculoPage implements OnInit {
+export class VehiculoListarPage implements OnInit {
   misVehiculos: Vehiculo[] = []; //ESTO FUE CLAVE PARA QUE FUNCIONARA. Investigar por que "misVehiculos = [];" no funciona y si "misVehiculos: Vehiculo[] = []"
 
 
@@ -18,11 +18,7 @@ export class VehiculoPage implements OnInit {
   ngOnInit() {
     this.misVehiculos = this.vehiculoService.obtenerVehiculos();
   }
-
-  clickVehiculoListar() {
-    this.router.navigate(['/vehiculo-listar']);
-  }
-
+  
   clickPerfil(){
     this.router.navigate(['/perfil'])
   }

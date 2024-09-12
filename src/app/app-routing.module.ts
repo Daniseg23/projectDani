@@ -54,6 +54,10 @@ const routes: Routes = [
     path: 'ayuda',
     loadChildren: () => import('./pages/ayuda/ayuda.module').then( m => m.AyudaPageModule)
   },
+  {
+    path: 'vehiculo-listar',
+    loadChildren: () => import('./pages/vehiculo-listar/vehiculo-listar.module').then( m => m.VehiculoListarPageModule)
+  },
 
 ];
 

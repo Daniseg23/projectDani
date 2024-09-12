@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 export interface Vehiculo {
   marca: string;
   modelo: string;
+  anio: string;
+  color: string;
+  capacidadPasajero: string;
   patente: string;
 }
 
