@@ -9,7 +9,7 @@
 
   <ion-content [fullscreen]="true">
 
-    <ion-menu contentId="main-content">
+    <ion-menu  contentId="main-content">
       <ion-header>
         <ion-toolbar>
           <ion-title>Menu Content</ion-title>
@@ -38,7 +38,7 @@
   
     </ion-menu>
     <div class="ion-page" id="main-content">
-      <ion-header>
+      <ion-header style="box-shadow: 0 10px 90px rgba(0, 0, 0, 0.7)">
         <ion-toolbar>
           <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
@@ -48,8 +48,8 @@
       </ion-header>
     </div>
 
-    <ion-card style="position: relative; margin: 3px; margin-bottom: 35px;" >
-      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png"/>
+    <ion-card style="position: relative; margin: 3px; margin-bottom: 35px; height: 200px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7)" >
+      <img alt="Silhouette of mountains" src="assets/listaVehiculo.jpg" style=" margin-top: -20px; width: 100%;"/>
       <div class="descripcionListaVehiculo">
         Todos los vehículos registrados se mostrarán en esta sección.
       </div>
@@ -59,7 +59,7 @@
       <p style="font-size: 20px; font-weight: bold; margin-top: -10px; background-color: rgb(59, 59, 59); color: white;">No hay vehículos registrados en tu cuenta</p>
     </div>
 
-    <ion-card button (click)="clickFunction()" *ngFor="let vehiculo of misVehiculos" style="margin-top: -20px; margin-left: 5px; margin-right: 10px; height: 100px;">
+    <ion-card button (click)="clickFunction()" *ngFor="let vehiculo of misVehiculos" style="margin-top: -20px; margin-left: 5px; margin-right: 10px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
       <ion-card-header>
         <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" style="position: absolute; height: 90px; width: 160px; margin-bottom: -75px; margin-left: -15px;"/>
       </ion-card-header>

@@ -12,7 +12,8 @@
     color: white;
     font-size: 15px;
     text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+    text-shadow: 1px 1px 3px black; 
 }
 
 .infoVehiculoCard{
@@ -29,3 +30,11 @@
     height: 50px;
     --background: linear-gradient(rgba(0, 0, 0, 0.5), black); 
 }
+
+.main-card {
+    position: relative;
+    margin: 3px;
+    margin-bottom: 35px;
+    height: 200px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra en el borde inferior */
+  }
