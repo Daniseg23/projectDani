@@ -5,7 +5,14 @@
 </ion-header>
 
 <ion-content>
+  
   <div style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgb(255, 255, 255)); padding: 20px 0px; height: 100%; display: flex; justify-content: center; align-items: center;">
+
+    <!-- Título en el fondo -->
+    <div style="position: absolute; top: 15%; left: 50%; transform: translate(-50%, -50%); z-index: 1; opacity: 0.5; font-size: 70px; font-weight: bold; color: white; text-align: center;">
+      UBER
+    </div>
+
     <div class="box" style="max-width: 400px; width: 100%; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
       <ion-list>
         <ion-item>
@@ -15,9 +22,25 @@
           <ion-input [(ngModel)]="contrasena" label="Contraseña"></ion-input>
         </ion-item>
       </ion-list>
-      <!-- 'inicio/:numero', -->
-      <ion-button expand="full" [routerLink]="['/inicio/' + 100]" style="margin-top: 20px;">Acceder</ion-button>
-      <ion-button expand="full" (click)="login()" style="margin-top: 10px;">Recuperar contraseña</ion-button>
+
+      <!-- Botón principal (acceder) -->
+      <ion-button expand="full" [routerLink]="['/inicio/' + 100]" style="margin-top: 20px; --background: linear-gradient(rgba(0,0,0,0.5), black) ;">
+        Acceder
+      </ion-button>
+
+      <!-- Los botones de registrar y recuperar contra con estilo más grande -->
+      <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+        
+        <ion-button fill="clear" (click)="register()" style="flex: 1; padding: 10px; font-size: 17px;">
+          Registrarme
+        </ion-button>
+        
+        <ion-button fill="clear" (click)="login()" style="flex: 1; margin-right: 20px; padding: 10px; font-size: 17px;">
+          Recuperar contraseña
+        </ion-button>
+      </div>
     </div>
   </div>
 </ion-content>
+
+
