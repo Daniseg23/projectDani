@@ -24,7 +24,7 @@
       </ion-list>
 
       <!-- Botón principal (acceder) -->
-      <ion-button expand="full" [routerLink]="['/inicio/' + 100]" style="margin-top: 20px; --background: linear-gradient(rgba(0,0,0,0.5), black) ;">
+      <ion-button expand="full" (click)="login()" style="margin-top: 20px; --background: linear-gradient(rgba(0,0,0,0.5), black) ;">
         Acceder
       </ion-button>
 

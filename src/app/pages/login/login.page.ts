@@ -7,11 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-login() {
-throw new Error('Method not implemented.');
-}
-contrasena: String | undefined;
-correo: String | undefined;
+
+  contrasena: String | undefined;
+  correo: String | undefined;
 
   constructor(private router:Router) { }
 
@@ -22,4 +20,19 @@ correo: String | undefined;
     this.router.navigate(["/registro-user"])
   }
 
+  login() {
+    if (this.correo == "") {
+      alert("Ingrese un correo");
+      return;
+    }
+    if (this.contrasena == "") {
+      alert("Ingrese una contraseña");
+      return;
+    }
+    if (this.correo == "duocsanjoaquin@duocuc.cl" && this.contrasena == 'duoc123') {
+      this.router.navigateByUrl('/inicio/' + 100);
+    } else {
+      alert("Credenciales incorrectas.");
+    }
+  }
 }
