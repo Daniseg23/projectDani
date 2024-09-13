@@ -5,32 +5,26 @@ import { Viaje } from 'src/app/services/servicios.service'; //ESTO FUE CLAVE PAR
 
 
 @Component({
-  selector: 'app-viaje',
-  templateUrl: './viaje.page.html',
-  styleUrls: ['./viaje.page.scss'],
+  selector: 'app-viaje-listar',
+  templateUrl: './viaje-listar.page.html',
+  styleUrls: ['./viaje-listar.page.scss'],
 })
-
-export class ViajePage implements OnInit {
+export class ViajeListarPage implements OnInit {
   misViajes: Viaje[] = []; //ESTO FUE CLAVE PARA QUE FUNCIONARA. Investigar por que "misVehiculos = [];" no funciona y si "misVehiculos: Vehiculo[] = []"
 
-  constructor(private router: Router, private vehiculoService: ServiciosService) { }
+
+  constructor(private router: Router, private viajeService: ServiciosService) { }
 
   ngOnInit() {
-    this.misViajes = this.vehiculoService.obtenerViajes();
+    this.misViajes = this.viajeService.obtenerViajes();
   }
-
-  viajes(){
-    console.log('viajes');
-    //redirige al usuario a la vista "viaje"
-    this.router.navigateByUrl('viajes')
-  }
-
+  
   clickPerfil(){
     this.router.navigate(['/perfil'])
   }
 
-  clickVehiculo(){
-    this.router.navigate(['/vehiculo'])
+  clickViaje(){
+    this.router.navigate(['/viaje'])
   }
 
   clickAyuda(){
@@ -39,14 +33,6 @@ export class ViajePage implements OnInit {
 
   clickInicio(){
     this.router.navigate(['/inicio'])
-  }
-
-  clickViaje(){
-    this.router.navigate(['/viaje'])
-  }
-
-  clickVehiculoListar() {
-    this.router.navigate(['/viaje-listar']);
   }
 
 }

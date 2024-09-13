@@ -58,6 +58,14 @@ const routes: Routes = [
     path: 'vehiculo-listar',
     loadChildren: () => import('./pages/vehiculo-listar/vehiculo-listar.module').then( m => m.VehiculoListarPageModule)
   },
+  {
+    path: 'viaje-agregar',
+    loadChildren: () => import('./pages/viaje-agregar/viaje-agregar.module').then( m => m.ViajeAgregarPageModule)
+  },
+  {
+    path: 'viaje-listar',
+    loadChildren: () => import('./pages/viaje-listar/viaje-listar.module').then( m => m.ViajeListarPageModule)
+  },
 
 ];
 

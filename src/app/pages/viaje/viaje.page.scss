@@ -1,0 +1,27 @@
+.descripcionListaVehiculo{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    width: 80%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    font-weight: 500;
+    text-shadow: 1px 1px 3px black; 
+}
+
+.infoVehiculoCard{
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: -13px;
+    margin-bottom: 5px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+}
+
+.botonDesign{
+    width: 200px;
+    height: 50px;
+    --background: linear-gradient(rgba(0, 0, 0, 0.5), black); 
+}

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button auto-hide="false" style="color: white; background: linear-gradient(rgba(0, 0, 0, 0.7), rgb(104, 104, 104)); width: 50px; height: 40px;"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Mi Vehiculo</ion-title>
+    <ion-title>Mi Viajes</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -49,28 +49,23 @@
   </div>
 
   <ion-card style="box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7)">
-    <ion-list *ngFor="let vehiculo of misVehiculos" inset="true">
+    <ion-list *ngFor="let viaje of misViajes" inset="true">
       <ion-item>
-        <p label="Modelo:">Marca: {{ vehiculo.marca }}</p>
+        <p label="Modelo:">Costo: {{ viaje.costo }}</p>
       </ion-item>
       <ion-item>
-        <p label="Modelo:">Modelo: {{ vehiculo.modelo }}</p>
+        <p label="Modelo:">Fecha: {{ viaje.fecha }}</p>
       </ion-item>
       <ion-item>
-        <p label="Modelo:">Año: {{ vehiculo.anio }}</p>
+        <p label="Modelo:">Ubicacion Origen: {{ viaje.ubOrigen }}</p>
       </ion-item>
       <ion-item>
-        <p label="Modelo:">Color: {{ vehiculo.color }}</p>
-      </ion-item>
-      <ion-item>
-        <p label="Modelo:">Capacidad Pasajero: {{ vehiculo.capacidadPasajero }}</p>
-      </ion-item>
-      <ion-item>
-        <p label="Modelo:">Patente: {{ vehiculo.patente }}</p>
+        <p label="Modelo:">Ubicacion Destino: {{ viaje.ubDestino }}</p>
       </ion-item>
     </ion-list>
   </ion-card>
 
+  
   <!-- 
     <div style="display: flex; justify-content: center; margin-top: 20px;">
       <ion-button class="botonDesign" shape="round" >Eliminar</ion-button>

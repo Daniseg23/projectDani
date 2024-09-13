@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button auto-hide="false" style="color: white; background: linear-gradient(rgba(0, 0, 0, 0.7), rgb(104, 104, 104)); width: 50px; height: 40px;"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Mi Vehiculo</ion-title>
+    <ion-title>Mi Viajes</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -49,37 +49,24 @@
   </div>
 
   <ion-card style="box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7)">
-    <ion-list *ngFor="let vehiculo of misVehiculos" inset="true">
+    <ion-list inset="true">
       <ion-item>
-        <p label="Modelo:">Marca: {{ vehiculo.marca }}</p>
+        <ion-input label="Marca:" [(ngModel)]="costo" name="marca"></ion-input>
       </ion-item>
       <ion-item>
-        <p label="Modelo:">Modelo: {{ vehiculo.modelo }}</p>
+        <ion-input label="Modelo:" [(ngModel)]="fecha" name="modelo"></ion-input>
       </ion-item>
       <ion-item>
-        <p label="Modelo:">Año: {{ vehiculo.anio }}</p>
+        <ion-input label="Año:" [(ngModel)]="ubOrigen" name="anio"></ion-input>
       </ion-item>
       <ion-item>
-        <p label="Modelo:">Color: {{ vehiculo.color }}</p>
-      </ion-item>
-      <ion-item>
-        <p label="Modelo:">Capacidad Pasajero: {{ vehiculo.capacidadPasajero }}</p>
-      </ion-item>
-      <ion-item>
-        <p label="Modelo:">Patente: {{ vehiculo.patente }}</p>
+        <ion-input label="Color:" [(ngModel)]="ubDestino" name="color"></ion-input>
       </ion-item>
     </ion-list>
   </ion-card>
 
-  <!-- 
-    <div style="display: flex; justify-content: center; margin-top: 20px;">
-      <ion-button class="botonDesign" shape="round" >Eliminar</ion-button>
-    </div>
-
-    <div style="display: flex; justify-content: center; margin-top: 20px;">
-      <ion-button class="botonDesign" shape="round" >Modificar</ion-button>
-    </div>
-  -->
-
+  <div style="display: flex; justify-content: center; margin-top: 20px;">
+    <ion-button class="botonDesign" shape="round" (click)="registrarViaje()" [routerLink]="['/viaje/']">Registrar Vehículo</ion-button>
+  </div>
 
 </ion-content>
