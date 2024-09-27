@@ -4,9 +4,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+const RedireccionarLogin = () => redirectUnauthorizedTo(['/login']);
 const routes: Routes = [
   {
     path: 'home',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
@@ -25,17 +28,22 @@ const routes: Routes = [
   },
   {
     path: 'vehiculo',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/vehiculo/vehiculo.module').then( m => m.VehiculoPageModule)
   },
   {
     path: 'viaje',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/viaje/viaje.module').then( m => m.ViajePageModule)
   },
   {
     path: 'vehiculo',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/vehiculo/vehiculo.module').then( m => m.VehiculoPageModule)
-  },  {
+  },
+  {
     path: 'perfil',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
@@ -44,6 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'agregar-auto',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/agregar-auto/agregar-auto.module').then( m => m.AgregarAutoPageModule)
   },
   {
@@ -52,19 +61,27 @@ const routes: Routes = [
   },
   {
     path: 'ayuda',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/ayuda/ayuda.module').then( m => m.AyudaPageModule)
   },
   {
     path: 'vehiculo-listar',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/vehiculo-listar/vehiculo-listar.module').then( m => m.VehiculoListarPageModule)
   },
   {
     path: 'viaje-agregar',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/viaje-agregar/viaje-agregar.module').then( m => m.ViajeAgregarPageModule)
   },
   {
     path: 'viaje-listar',
+    canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/viaje-listar/viaje-listar.module').then( m => m.ViajeListarPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
   },
 
 ];

@@ -22,6 +22,9 @@ export interface Viaje {
   providedIn: 'root'
 })
 export class ServiciosService {
+  login(correo: String | undefined, contrasena: String | undefined) {
+    throw new Error('Method not implemented.');
+  }
   //Vehiculo
   private misVehiculos: Vehiculo[] = [];
 

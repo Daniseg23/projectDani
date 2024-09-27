@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HelperService } from 'src/app/services/helper.service';
+import { ServiciosService } from 'src/app/services/servicios.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginPage implements OnInit {
   contrasena: String | undefined;
   correo: String | undefined;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private firebase:ServiciosService, private helper:HelperService) { }
 
   ngOnInit() {
   }
@@ -22,10 +24,11 @@ export class LoginPage implements OnInit {
 
   login() {
     if (this.correo == "") {
-      alert("Ingrese un correo");
+      this.helper.showAlert("Ingrese el correo", "Error de validación")
       return;
     }
     if (this.contrasena == "") {
+      this.helper.showAlert("Ingrese la contraseña", "Error de validación")
       alert("Ingrese una contraseña");
       return;
     }
@@ -34,5 +37,7 @@ export class LoginPage implements OnInit {
     } else {
       alert("Credenciales incorrectas.");
     }
+
+    this.firebase.login(this.correo, this.contrasena);
   }
 }
