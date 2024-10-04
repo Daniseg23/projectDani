@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
     this.router.navigate(["/registro-user"])
   }
 
-  login() {
+  async login() {
     if (this.correo == "") {
       this.helper.showAlert("Ingrese el correo", "Error de validación")
       return;
@@ -38,7 +38,25 @@ export class LoginPage implements OnInit {
     }
     if (this.correo == "duocsanjoaquin@duocuc.cl" && this.contrasena == 'duoc123') {
 
-      this.firebase.login(this.correo, this.contrasena);
+      const loader = await this.helper.showLoader("Cargando")
+      try{
+        await this.firebase.login(this.correo, this.contrasena);
+        loader.dismiss();
+      } catch(error:any){
+        let msg = "Ocurrió un error al iniciar sesión";
+
+        if(error.code =="auth/invalid-credentiall"){
+          msg = "La conraseña es incorrecta";
+        } else if(error.code == "auth/wrong-passwrod"){
+          msg = "Contrasña incorrecta";
+        }else if(error.code == "auth/invalid-email"){
+          msg = "Correo no valido"
+        }
+
+        this.helper.showAlert(msg,"Aceptar");
+        loader.dismiss();
+      }
+    
 
       const jsonToken =
       [

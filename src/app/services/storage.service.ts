@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
+import { Observable } from 'rxjs';
 
 const llaveUber = "llaveAplicacionUber";
 
@@ -14,9 +15,9 @@ export class StorageService {
     await Preferences.set({key:llave, value:valor});
   }
 
-  async getItem(llave:string){
+  async getItem(llave:string):Promise<string | null>{
     const obj = await Preferences.get({key:llave});
-    return obj;
+    return obj.value;
   }
 
   async agregarToken(dataJson:any){
