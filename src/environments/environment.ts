@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl:'https://uber-nodejs-server-git-d61f89-guillermovillacuratorres-projects.vercel.app/api/'
 };
 
 /*
