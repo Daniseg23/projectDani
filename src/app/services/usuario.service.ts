@@ -28,11 +28,17 @@ export class UsuarioService {
     throw error;
    }
 
-   async obtenerUsuario(){
+   async obtenerUsuario(data:dataGetUser){
     try{
+      const params = {
+        p_correo: data.p_correo,
+        token: data.token
+      }
+      const response = await lastValueFrom(this.http.get(environment.apiUrl + 'user/agregar', {params}));
       
+    }catch (error){
+      throw error
     }
-
    }
 }
 
@@ -42,4 +48,10 @@ interface dataBodyUsuario{
   p_telefono: string;
   token?: string
 
+}
+
+
+interface dataGetUser{
+  p_correo: string;
+  token: string;
 }

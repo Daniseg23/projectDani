@@ -40,45 +40,56 @@ export class LoginPage implements OnInit {
 
       const loader = await this.helper.showLoader("Cargando")
       try{
-        await this.firebase.login(this.correo, this.contrasena);
-        loader.dismiss();
-      } catch(error:any){
-        let msg = "Ocurrió un error al iniciar sesión";
+        const reqFirebase = await this.firebase.login(this.correo, this.contrasena);
+        //solicitud get user
+        const token = await userFirebase.user?.getIdToken();
+        if(token){
+          this.token = token;
+          const req = await this.usuarioService.obtenerUsuario(
+            {
+              p_correo: this.correo,
+              token: token
+            }
+          )
+          loader.dismiss();
+        } catch(error:any){
+          let msg = "Ocurrió un error al iniciar sesión";
+          
+          if(error.code =="auth/invalid-credentiall"){
+            msg = "La conraseña es incorrecta";
+          } else if(error.code == "auth/wrong-passwrod"){
+            msg = "Contrasña incorrecta";
+          }else if(error.code == "auth/invalid-email"){
+            msg = "Correo no valido"
+          }
 
-        if(error.code =="auth/invalid-credentiall"){
-          msg = "La conraseña es incorrecta";
-        } else if(error.code == "auth/wrong-passwrod"){
-          msg = "Contrasña incorrecta";
-        }else if(error.code == "auth/invalid-email"){
-          msg = "Correo no valido"
+          this.helper.showAlert(msg,"Aceptar");
+          loader.dismiss();
         }
-
-        this.helper.showAlert(msg,"Aceptar");
-        loader.dismiss();
-      }
-    
-
-      const jsonToken =
-      [
-        {
-          "token":"123123",
-          "nombre": "PGY123"
-        }
-      ];
+        
+        
+        const jsonToken =
+        [
+          {
+            "token":"123123",
+            "nombre": "PGY123"
+          }
+        ];
   
-      this.storage.agregarToken(jsonToken);
+        this.storage.agregarToken(jsonToken);
 
 
-      //Obtenemos la info que guardamos en el storage
-      console.log(this.storage.obtenerStorage())
+        //Obtenemos la info que guardamos en el storage
+        console.log(this.storage.obtenerStorage())
 
 
 
-      this.router.navigateByUrl('/inicio/' + 100);
-    } else {
+        this.router.navigateByUrl('/inicio/' + 100);
+      } else {
       alert("Credenciales incorrectas.");
+      }
+
+
     }
-
-
   }
 }
