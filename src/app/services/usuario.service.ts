@@ -27,6 +27,13 @@ export class UsuarioService {
    }catch(error: any){
     throw error;
    }
+
+   async obtenerUsuario(){
+    try{
+      
+    }
+
+   }
 }
 
 interface dataBodyUsuario{
