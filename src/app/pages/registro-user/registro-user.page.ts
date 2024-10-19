@@ -47,18 +47,20 @@ export class RegistroUserPage implements OnInit {
 
 
   async takePhoto(){
-    const takePicture = async() => {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
     });
+    
     if (image.webPath){
       const response = await fetch(image.webPath);
       const blob = await response.blob();
 
       this.imagen = {
-        fname: 'foto' + image.format
+        fname: 'foto' + image.format,
+        src: image.webPath,
+        file: blob
       }
     }
 
@@ -67,5 +69,4 @@ export class RegistroUserPage implements OnInit {
     this.imagen.src = imageUrl;
   }
 
-}
 }

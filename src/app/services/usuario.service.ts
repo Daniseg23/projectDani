@@ -35,9 +35,9 @@ export class UsuarioService {
         token: data.token
       }
       const response = await lastValueFrom(this.http.get(environment.apiUrl + 'user/agregar', {params}));
-      
+      return response;  
     }catch (error){
-      throw error
+    throw error
     }
    }
 }

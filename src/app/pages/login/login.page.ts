@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserModel } from 'src/app/models/usuario';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { HelperService } from 'src/app/services/helper.service';
-import { ServiciosService } from 'src/app/services/servicios.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -11,85 +13,106 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class LoginPage implements OnInit {
 
-  contrasena: String | undefined;
-  correo: String | undefined;
+  correo: string = "manriseguin@duoc.cl";
+  contrasena: string = "duoc321";
+  token: string ="";
+  usuario: UserModel[]=[];
 
   constructor(private router:Router,
-              private firebase:ServiciosService, 
+              private firebase:FirebaseService, 
               private helper:HelperService,
-              private storage:StorageService) { }
+              private storage:StorageService,
+              private usuarioService:UsuarioService) { }
 
   ngOnInit() {
   }
 
-  register(){
+  /*register(){
     this.router.navigate(["/registro-user"])
-  }
+  } 
+  */
 
   async login() {
     if (this.correo == "") {
       this.helper.showAlert("Ingrese el correo", "Error de validación")
       return;
     }
+
     if (this.contrasena == "") {
       this.helper.showAlert("Ingrese la contraseña", "Error de validación")
       alert("Ingrese una contraseña");
       return;
     }
-    if (this.correo == "duocsanjoaquin@duocuc.cl" && this.contrasena == 'duoc123') {
 
-      const loader = await this.helper.showLoader("Cargando")
-      try{
-        const reqFirebase = await this.firebase.login(this.correo, this.contrasena);
-        //solicitud get user
-        const token = await userFirebase.user?.getIdToken();
-        if(token){
-          this.token = token;
-          const req = await this.usuarioService.obtenerUsuario(
-            {
-              p_correo: this.correo,
-              token: token
-            }
-          )
-          loader.dismiss();
-        } catch(error:any){
-          let msg = "Ocurrió un error al iniciar sesión";
-          
-          if(error.code =="auth/invalid-credentiall"){
-            msg = "La conraseña es incorrecta";
-          } else if(error.code == "auth/wrong-passwrod"){
-            msg = "Contrasña incorrecta";
-          }else if(error.code == "auth/invalid-email"){
-            msg = "Correo no valido"
-          }
+    //if (this.correo == "duocsanjoaquin@duocuc.cl" && this.contrasena == 'duoc123') {
 
-          this.helper.showAlert(msg,"Aceptar");
-          loader.dismiss();
-        }
-        
-        
-        const jsonToken =
-        [
+    const loader = await this.helper.showLoader("Cargando");
+    try{
+
+      const reqFirebase = await this.firebase.login(this.correo, this.contrasena);
+      //solicitud get user
+      const token = await reqFirebase.user?.getIdToken();
+
+      if(token){
+        this.token = token;
+        const req = await this.usuarioService.obtenerUsuario(
           {
-            "token":"123123",
-            "nombre": "PGY123"
+            p_correo: this.correo,
+            token: token
           }
-        ];
-  
-        this.storage.agregarToken(jsonToken);
+        );
+        this.usuario = req.data;
+        console.log("Data Usuario", this.usuario[0].id_usuario);
 
+      }
+        
+      loader.dismiss();
+    } catch (error:any){
 
-        //Obtenemos la info que guardamos en el storage
-        console.log(this.storage.obtenerStorage())
-
-
-
-        this.router.navigateByUrl('/inicio/' + 100);
-      } else {
-      alert("Credenciales incorrectas.");
+      let msg = "Ocurrió un error al iniciar sesión";
+          
+      if(error.code =="auth/invalid-credentiall"){
+        msg = "La credencial es incorrecta";
+      }else if(error.code == "auth/wrong-passwrod"){
+        msg = "La contrasña es incorrecta";
+      }else if(error.code == "auth/invalid-email"){
+        msg = "El correo es incorrecto";
       }
 
-
+      this.helper.showAlert(msg,"Aceptar");
+      loader.dismiss();
     }
+        
+        
+    const jsonToken =
+    [
+      {
+        "token": this.token,
+        "id_usuario": this.usuario[0].id_usuario,
+        "usuario_correo": this.usuario[0].correo_electronico
+      }
+    ];
+  
+    this.storage.agregarToken(jsonToken);
+
+
+    //Obtenemos la info que guardamos en el storage
+    let token = await this.storage.obtenerStorage();
+    console.log(token[0].usuario_correo);
+
+    await this.helper.showToast("Login correcto!");
+    this.router.navigateByUrl("/inicio");
   }
+
+
+
+  resetPw(){
+    this.router.navigateByUrl("reset-password");
+  }
+      
+  registro(){
+    this.router.navigateByUrl("registro");
+  }
+
+    
 }
