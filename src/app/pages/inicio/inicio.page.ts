@@ -1,7 +1,7 @@
 //En este apartado se crean funciones
 //Se crean métodos
 import { Component, OnInit } from '@angular/core';
-import { ActivateRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ViewDidEnter, ViewWillEnter, ViewDidLeave, ViewWillLeave } from '@ionic/angular';
 
 import { ElementRef, ViewChildren, ViewChild } from '@angular/core';
@@ -31,7 +31,7 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
   private animation: Animation | undefined;
 
   constructor(private router:Router,
-              private activateRoute:ActivateRoute,
+              private activateRoute:ActivatedRoute,
               private animationCtrl: AnimationController,
               private firebase:FirebaseService,
               private usuarioService:UsuarioService,
@@ -39,6 +39,11 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
               private viajeService:ViajeService,
               private helper:HelperService
   ) { }
+
+  seleccionarViaje(parId:number){
+    console.log("Viaje seleccionado ", parId);
+    
+  }
 
   async cargarViajes(){
     let dataStorage = await this.storage.obtenerStorage();

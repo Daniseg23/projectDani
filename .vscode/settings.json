@@ -1,26 +1,3 @@
 {
-  "typescript.preferences.autoImportFileExcludePatterns": [
-    "@ionic/angular/common",
-    "@ionic/angular/standalone"
-  ],
-  "cSpell.words": [
-    "apartado",
-    "Cerrar",
-    "colocan",
-    "Contenido",
-    "correo",
-    "crean",
-    "desplegable",
-    "funciones",
-    "hacen",
-    "inicio",
-    "Menú",
-    "métodos",
-    "Perfil",
-    "redirige",
-    "sesión",
-    "usuario",
-    "vehiculo",
-    "viaje"
-  ]
+  "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular/standalone"]
 }

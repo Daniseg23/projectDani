@@ -35,7 +35,7 @@ async showLoader(msg:string){
   return loader;
 }
 
-async showToaster(msg:string){
+async showToast(msg:string){
   const toast = await this.toastController.create(
     {
       message:msg,
