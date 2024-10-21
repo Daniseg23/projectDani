@@ -101,7 +101,7 @@ export class LoginPage implements OnInit {
     console.log(token[0].usuario_correo);
 
     await this.helper.showToast("Login correcto!");
-    this.router.navigateByUrl("/inicio");
+    this.router.navigateByUrl("inicio");
   }
 
 
@@ -111,7 +111,7 @@ export class LoginPage implements OnInit {
   }
       
   registro(){
-    this.router.navigateByUrl("registro");
+    this.router.navigateByUrl("registro-user");
   }
 
     
