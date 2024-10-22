@@ -51,6 +51,9 @@
   <ion-card style="box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7)">
     <ion-list inset="true">
       <ion-item>
+        <ion-input label="Patente:" [(ngModel)]="patente" name="patente"></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-input label="Marca:" [(ngModel)]="marca" name="marca"></ion-input>
       </ion-item>
       <ion-item>
@@ -59,20 +62,28 @@
       <ion-item>
         <ion-input label="Año:" [(ngModel)]="anio" name="anio"></ion-input>
       </ion-item>
+<!-- <ion-item>
+        <ion-input label="Capacidad Pasajero:" [(ngModel)]="p_capacidadPasajero" name="capacidadPasajero"></ion-input>
+      </ion-item> -->
       <ion-item>
         <ion-input label="Color:" [(ngModel)]="color" name="color"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input label="Capacidad Pasajero:" [(ngModel)]="capacidadPasajero" name="capacidadPasajero"></ion-input>
+        <ion-input label="Tipo Combustible:" [(ngModel)]="tipo_combustible" name="tipo_combustible"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-input label="Patente:" [(ngModel)]="patente" name="patente"></ion-input>
-      </ion-item>
+
+      <img *ngIf="imagen" [src]="imagen.src" height="100" width="100" alt="">
+        
+
+      <ion-button (click)="takePhoto()">
+        <ion-icon style="margin-right: 10px;" name="camera-outline"></ion-icon>
+        Tomar foto
+      </ion-button>
     </ion-list>
   </ion-card>
 
   <div style="display: flex; justify-content: center; margin-top: 20px;">
-    <ion-button class="botonDesign" shape="round" (click)="registrarVehiculo()" [routerLink]="['/vehiculo/']">Registrar Vehículo</ion-button>
+    <ion-button class="botonDesign" shape="round" (click)="registroVehiculo()">Registrar Vehículo</ion-button>
   </div>
 
 </ion-content>

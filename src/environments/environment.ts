@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 //API PROFESOR
-export const environment = {
+/*export const environment = {
   production: false,
   firebaseConfig : {
     apiKey: "AIzaSyCxYO32uuQuJwRBRsUHPRQcFM2fTXMzFYM",
@@ -15,25 +15,24 @@ export const environment = {
   },
   apiUrl:"https://uber-nodejs-server-git-d61f89-guillermovillacuratorres-projects.vercel.app/api/"
   
-};
+};*/
 
 
 
 // API DANIEL
-/*export const environment = {
+export const environment = {
   production: false,
   apiUrl:'https://uber-nodejs-server-git-d61f89-guillermovillacuratorres-projects.vercel.app/api/',
    firebaseConfig : {
-    apiKey: "AIzaSyB7BS_w9TMIkZ8RTlrMBo_gQG9_Ftd3GlY",
-    authDomain: "manriquez-seguin.firebaseapp.com",
-    projectId: "manriquez-seguin",
-    storageBucket: "manriquez-seguin.appspot.com",
-    messagingSenderId: "225149079128",
-    appId: "1:225149079128:web:ed44b0541014fb6f01042d",
-    measurementId: "G-YGCVEMP6GK"
+    apiKey: "AIzaSyDqyJw__ap-1JRw_bsjJqQd59fksIFIRac",
+    authDomain: "francodanitesting.firebaseapp.com",
+    projectId: "francodanitesting",
+    storageBucket: "francodanitesting.appspot.com",
+    messagingSenderId: "994515043126",
+    appId: "1:994515043126:web:87733b80d1fb2662b7a997"
   }
 };
-*/
+
 
 /*
  * For easier debugging in development mode, you can import the following file

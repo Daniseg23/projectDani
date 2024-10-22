@@ -1,3 +1,4 @@
+import { StorageService } from 'src/app/services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Camera, CameraResultType } from '@capacitor/camera';
@@ -21,7 +22,8 @@ export class RegistroUserPage implements OnInit {
   constructor(private firebase:FirebaseService, 
               private usuarioService: UsuarioService,
               private helper:HelperService,
-              private router:Router) { }
+              private router:Router,
+              private storageService:StorageService) { }
 
   ngOnInit() {
   }
@@ -29,7 +31,10 @@ export class RegistroUserPage implements OnInit {
   async registro(){
     const userFirebase = await this.firebase.registro(this.correo, this.contrasena);
     const token = await userFirebase.user?.getIdToken();
+
+
     if(token){
+      await this.storageService.setItem('token', token);
       const req = await this.usuarioService.agregarUsuario(
         {
           p_correo_electronico:this.correo,

@@ -1,32 +1,81 @@
-
 import { Component, OnInit } from '@angular/core';
+import { VehiculoService } from 'src/app/services/vehiculo.service'; // Servicio para manejar vehículos
+import { HelperService } from 'src/app/services/helper.service'; // Para mostrar alertas
+import { StorageService } from 'src/app/services/storage.service'; // Para gestionar el almacenamiento local
 import { Router } from '@angular/router';
-import { ServiciosService } from 'src/app/services/servicios.service';
-
-interface Vehiculo {
-  marca: string;
-  modelo: string;
-  anio: string;
-  color: string;
-  capacidadPasajero: string;
-  patente: string;
-}
+import { Camera, CameraResultType } from '@capacitor/camera'; // Para tomar fotos
 
 @Component({
   selector: 'app-agregar-auto',
   templateUrl: './agregar-auto.page.html',
   styleUrls: ['./agregar-auto.page.scss'],
 })
-export class AgregarAutoPage {
+export class AgregarAutoPage implements OnInit {
   marca: string = '';
   modelo: string = '';
-  anio: string = '';
+  anio: number = 0;
   color: string = '';
-  capacidadPasajero: string = '';
+  //capacidadPasajero: string = '';
   patente: string = '';
+  tipo_combustible: string = '';
+  imagen: any;
 
-  constructor(private vehiculoService: ServiciosService, private router: Router) { }
-  
+  constructor(
+    private vehiculoService: VehiculoService, // Servicio para manejar vehículos
+    private helper: HelperService, // Para mostrar alertas
+    private router: Router, // Para la navegación
+    private storageService: StorageService, // Para obtener el token almacenado
+  ) { }
+
+  ngOnInit() { }
+
+  // Método para registrar el vehículo
+  async registroVehiculo() {
+    const token = await this.storageService.getItem('token');
+    
+    if(token) {
+      const req = await this.vehiculoService.agregarVehiculo(
+        {
+          p_marca: this.marca,
+          p_modelo: this.modelo,
+          p_color: this.color,
+          p_patente: this.patente,
+          token: token,
+          p_id_usuario: 48,
+          p_anio: this.anio,
+          p_tipo_combustible: this.tipo_combustible
+        },
+        this.imagen
+      );
+      await this.helper.showAlert("Vehículo agregado exitosamente.", "Éxito");
+    } else {
+      await this.helper.showAlert("Token no encontrado, inicia sesión nuevamente.", "Error");
+    }
+  }
+
+  // Método para tomar la foto del vehículo
+  async takePhoto() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+    
+    if (image.webPath) {
+      const response = await fetch(image.webPath);
+      const blob = await response.blob();
+
+      this.imagen = {
+        fname: 'foto' + image.format,
+        src: image.webPath,
+        file: blob
+      };
+    }
+
+    var imageUrl = image.webPath;
+    this.imagen.src = imageUrl;
+  }
+
   clickPerfil(){
     this.router.navigate(['/perfil'])
   }
@@ -43,7 +92,8 @@ export class AgregarAutoPage {
     this.router.navigate(['/inicio'])
   }
 
-  registrarVehiculo() {
+
+  /*registrarVehiculo() {
     const nuevoVehiculo = {
 
       marca: this.marca,
@@ -62,5 +112,5 @@ export class AgregarAutoPage {
     this.capacidadPasajero = '';
     this.patente = '';
 
-  };
+  };*/
 }
