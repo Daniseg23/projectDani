@@ -54,21 +54,23 @@
         Todos los vehículos registrados se mostrarán en esta sección.
       </div>
     </ion-card>
-
-    <div *ngIf="misVehiculos.length === 0" style="text-align: center; margin-top: 20px;">
-      <p style="font-size: 20px; font-weight: bold; margin-top: -10px; background-color: rgb(59, 59, 59); color: white;">No hay vehículos registrados en tu cuenta</p>
-    </div>
-
-    <ion-card button (click)="clickVehiculoListar()" *ngFor="let vehiculo of misVehiculos" style="margin-top: -20px; margin-left: 5px; margin-right: 10px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
-      <ion-card-header>
-        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" style="position: absolute; height: 90px; width: 160px; margin-bottom: -75px; margin-left: -15px;"/>
-      </ion-card-header>
-      <ion-card-content style="height: 90px;flex: 1; margin-left: 166px; margin-right: 5px; margin-top: -31px; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(78, 78, 78, 0.37));">
-        <p class="infoVehiculoCard">Marca: {{ vehiculo.marca }}</p>
-        <p class="infoVehiculoCard">Modelo: {{ vehiculo.modelo }}</p>
-        <p class="infoVehiculoCard">Patente: {{ vehiculo.patente }}</p>
-      </ion-card-content>
-    </ion-card>
+    
+    <ion-card-content *ngIf="loaded">
+      <ion-card button (click)="clickVehiculoListar()" *ngFor="let i of vehiculo"  style="margin-top: -20px; margin-left: 5px; margin-right: 10px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
+        <ion-card-header>
+          <img alt="Silhouette of mountains" [src]="i.imagen_vehiculo" style="position: absolute; height: 90px; width: 118px; margin-bottom: -75px; margin-left: -15px;"/>
+        </ion-card-header>
+        <div style="height: 90px;flex: 1; margin-left: 126px; margin-right: 5px; margin-top: -31px; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(78, 78, 78, 0.37));">
+          <ion-card-content>
+            <div style="display: flex; flex-direction: column; margin-top: -15px;">
+              <p class="infoVehiculoCard">Marca: {{ i.marca }}</p>
+              <p class="infoVehiculoCard">Modelo: {{ i.modelo }}</p>
+              <p class="infoVehiculoCard">Patente: {{ i.patente }}</p>
+            </div>
+          </ion-card-content>
+        </div>
+      </ion-card>
+    </ion-card-content>
 
     <!-- 
     <ion-card button (click)="clickFunction()" *ngIf="vehiculoRegistrado" style="margin-top: -20px;margin-left: 5px; margin-right: 10px; height: 100px;">

@@ -45,7 +45,13 @@ export class VehiculoService {
     try {
       const params = {
         p_patente: data.p_patente,
-        token: data.token
+        token: data.token,
+        p_id_usuario: data.p_id_usuario,
+        p_marca: data.p_marca,
+        p_modelo: data.p_modelo,
+        p_anio: data.p_anio,
+        p_color: data.p_color,
+        p_tipo_combustible: data.p_tipo_combustible
       };
 
       // Enviar el request a la API para obtener los datos del auto
@@ -56,6 +62,8 @@ export class VehiculoService {
     }
   }
 }
+
+
 
 // Interface para los datos del auto en el cuerpo de la petición
 interface dataBodyAuto {
@@ -73,5 +81,10 @@ interface dataBodyAuto {
 interface dataGetAuto {
   p_id_usuario: number;
   p_patente: string;
+  p_marca: string;
+  p_modelo: string;
+  p_anio: number;
+  p_color: string;
+  p_tipo_combustible: string;
   token: string;
 }

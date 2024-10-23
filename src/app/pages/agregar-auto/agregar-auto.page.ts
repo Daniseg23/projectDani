@@ -31,7 +31,9 @@ export class AgregarAutoPage implements OnInit {
 
   // Método para registrar el vehículo
   async registroVehiculo() {
+    const dataStorage = await this.storageService.obtenerStorage();
     const token = await this.storageService.getItem('token');
+    const id_usuario = dataStorage[0]?.id_usuario;
     
     if(token) {
       const req = await this.vehiculoService.agregarVehiculo(
@@ -41,7 +43,7 @@ export class AgregarAutoPage implements OnInit {
           p_color: this.color,
           p_patente: this.patente,
           token: token,
-          p_id_usuario: 48,
+          p_id_usuario: id_usuario,
           p_anio: this.anio,
           p_tipo_combustible: this.tipo_combustible
         },
