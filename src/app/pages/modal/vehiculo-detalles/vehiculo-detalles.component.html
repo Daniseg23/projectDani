@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button style="margin-left: -5px;" (click)="cancel()">
+        <ion-icon style="font-size: 32px; color: black;" name="arrow-back-outline"></ion-icon>
+      </ion-button >
+    </ion-buttons>
+    <ion-title>{{ vehiculo.modelo }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-card style="position: relative; margin: -10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7)" >
+    <ion-card style="position: relative; margin: 20px; ; height: 200px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7)" >
+      <img alt="Silhouette of mountains" [src]="vehiculo.imagen_vehiculo" style=" margin-top: -40px; width: 100%;"/>
+    </ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-label>Marca:</ion-label>
+        <ion-text>{{ vehiculo.marca }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Modelo:</ion-label>
+        <ion-text>{{ vehiculo.modelo }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Año:</ion-label>
+        <ion-text>{{ vehiculo.anio }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Color:</ion-label>
+        <ion-text>{{ vehiculo.color }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Capacidad Pasajero:</ion-label>
+        <ion-text>{{ vehiculo.capacidadPasajero }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Patente:</ion-label>
+        <ion-text>{{ vehiculo.patente }}</ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

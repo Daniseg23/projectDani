@@ -48,7 +48,7 @@
       </ion-header>
     </div>
 
-    <ion-card style="position: relative; margin: 3px; margin-bottom: 35px; height: 200px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7)" >
+    <ion-card style="position: relative; margin: 3px; margin-bottom: 25px; height: 200px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7)" >
       <img alt="Silhouette of mountains" src="assets/listaVehiculo.jpg" style=" margin-top: -20px; width: 100%;"/>
       <div class="descripcionListaVehiculo">
         Todos los vehículos registrados se mostrarán en esta sección.
@@ -56,7 +56,7 @@
     </ion-card>
     
     <ion-card-content *ngIf="loaded">
-      <ion-card button (click)="clickVehiculoListar()" *ngFor="let i of vehiculo"  style="margin-top: -20px; margin-left: 5px; margin-right: 10px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
+      <ion-card button (click)="abrirDetalleVehiculo(i)" *ngFor="let i of vehiculo"  style="margin-top: -20px; margin-left: 0px; margin-right: 0px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
         <ion-card-header>
           <img alt="Silhouette of mountains" [src]="i.imagen_vehiculo" style="position: absolute; height: 90px; width: 118px; margin-bottom: -75px; margin-left: -15px;"/>
         </ion-card-header>
@@ -79,9 +79,53 @@
       </ion-card-header>
     </ion-card> 
       -->
-
+<!--
+      <ion-modal *ngIf="vehiculoSeleccionado" (ionModalDidDismiss)="cerrarModal()">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Detalle del Vehículo</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+    
+          <ion-content>
+            <ion-list>
+              <ion-item>
+                <ion-label>Marca:</ion-label>
+                <ion-text>{{ vehiculoSeleccionado.marca }}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Modelo:</ion-label>
+                <ion-text>{{ vehiculoSeleccionado.modelo }}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Año:</ion-label>
+                <ion-text>{{ vehiculoSeleccionado.anio }}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Color:</ion-label>
+                <ion-text>{{ vehiculoSeleccionado.color }}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Capacidad Pasajero:</ion-label>
+                <ion-text>{{ vehiculoSeleccionado.capacidadPasajero }}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Patente:</ion-label>
+                <ion-text>{{ vehiculoSeleccionado.patente }}</ion-text>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+-->
     <div style="display: flex; justify-content: center; margin-top: 20px;">
       <ion-button [routerLink]="['/agregar-auto/']" class="botonDesign" shape="round">Agregar Vehiculo </ion-button>
     </div>
+
+
     
   </ion-content>
