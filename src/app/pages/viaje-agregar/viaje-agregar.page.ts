@@ -13,9 +13,10 @@ import { Camera, CameraResultType } from '@capacitor/camera'; // Para tomar foto
 export class ViajeAgregarPage implements OnInit {
   ubicacion_origen: string = '';
   ubicacion_destino: string = '';
-  costo: string = '';
+  costo: number = 0;
   id_vehiculo: number = 0;
   imagen: any;
+  estado: number = 0;
 
   constructor(
     private viajeService: ViajeService, // Servicio para manejar vehículos
@@ -40,37 +41,16 @@ export class ViajeAgregarPage implements OnInit {
           p_costo: this.costo,
           p_id_vehiculo: this.id_vehiculo,
           token: token,
-          p_id_usuario: id_usuario
+          p_id_usuario: id_usuario,
+          p_fecha: new Date(),
+          p_id_estado: this.estado,
+          p_nombre_proyecto: 'francodanitesting'
         },
-        this.imagen
       );
       await this.helper.showAlert("Viaje agregado exitosamente.", "Éxito");
     } else {
       await this.helper.showAlert("Token no encontrado, inicia sesión nuevamente.", "Error");
     }
-  }
-
-  // Método para tomar la foto del vehículo
-  async takePhoto() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: true,
-      resultType: CameraResultType.Uri
-    });
-    
-    if (image.webPath) {
-      const response = await fetch(image.webPath);
-      const blob = await response.blob();
-
-      this.imagen = {
-        fname: 'foto' + image.format,
-        src: image.webPath,
-        file: blob
-      };
-    }
-
-    var imageUrl = image.webPath;
-    this.imagen.src = imageUrl;
   }
 
   clickPerfil(){

@@ -8,6 +8,12 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class VehiculoService {
+marca: any;
+modelo: any;
+anio: any;
+color: any;
+capacidadPasajero: any;
+patente: any;
 
   constructor(private http: HttpClient) { }
 

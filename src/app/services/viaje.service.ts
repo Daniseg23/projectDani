@@ -10,7 +10,7 @@ export class ViajeService {
 
   constructor(private http:HttpClient) { }
 
-  async agregarViaje(datosViaje: dataBodyViaje, imgFileAuto: any) {
+  async agregarViaje(datosViaje: dataBodyViaje) {
     try {
       const formData = new FormData();
 
@@ -18,14 +18,14 @@ export class ViajeService {
       formData.append('p_id_usuario', datosViaje.p_id_usuario.toString());
       formData.append('p_ubicacion_origen', datosViaje.p_ubicacion_origen);
       formData.append('p_ubicacion_destino', datosViaje.p_ubicacion_destino);
-      formData.append('p_costo', datosViaje.p_costo);
+      formData.append('p_costo', datosViaje.p_costo.toString());
       formData.append('p_id_vehiculo', datosViaje.p_id_vehiculo.toString());
+      formData.append('p_fecha', datosViaje.p_fecha.toISOString());
+      formData.append('p_id_estado', datosViaje.p_id_estado.toString());
+      formData.append('p_nombre_proyecto', datosViaje.p_nombre_proyecto);
       if (datosViaje.token) {
         formData.append('token', datosViaje.token);
       }
-
-      // Agregar la imagen del auto al formData
-      formData.append('image', imgFileAuto.file, imgFileAuto.name); //Importa que el nombre de la var sea identico al nombre que tienen asignado en el apiURL, es indiferene si tiene el mismo nombre que el modelo (usuario.ts)
 
       // Enviar el request a la API para agregar el auto
       const response = await lastValueFrom(this.http.post<any>(environment.apiUrl + 'viaje/agregar', formData));
@@ -45,7 +45,9 @@ export class ViajeService {
         p_ubicacion_origen: data.p_ubicacion_origen,
         p_ubicacion_destino: data.p_ubicacion_destino,
         p_costo: data.p_costo,
-        p_id_vehiculo: data.p_id_vehiculo
+        p_id_vehiculo: data.p_id_vehiculo,
+        p_fecha: data.p_fecha.toISOString(),
+        p_nombre_proyecto: data.p_nombre_proyecto,
       };
 
       // Enviar el request a la API para obtener los datos del auto
@@ -64,8 +66,11 @@ interface dataBodyViaje {
   p_id_usuario: number;
   p_ubicacion_origen: string;
   p_ubicacion_destino: string;
-  p_costo: string;
+  p_costo: number;
   p_id_vehiculo: number;
+  p_fecha: Date;
+  p_id_estado: number;
+  p_nombre_proyecto: string;
   token?: string;
 }
 
@@ -74,7 +79,10 @@ interface dataGetViaje {
   p_id_usuario: number;
   p_ubicacion_origen: string;
   p_ubicacion_destino: string;
-  p_costo: string;
+  p_costo: number;
   p_id_vehiculo: number;
+  p_fecha: Date;
+  p_id_estado: number;
+  p_nombre_proyecto: string;
   token: string;
 }

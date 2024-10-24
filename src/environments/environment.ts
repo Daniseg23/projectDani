@@ -30,6 +30,7 @@ export const environment = {
     storageBucket: "francodanitesting.appspot.com",
     messagingSenderId: "994515043126",
     appId: "1:994515043126:web:87733b80d1fb2662b7a997"
+    //measurementId: "G-YGCVEMP6GK" ¿Que es esto?
   }
 };
 

@@ -15,5 +15,7 @@ export interface UserModel{
     patente:string;
     telefono:string;
     tipo_combustible:string;
-    costo: string;
+    costo: number;
+    fecha: string;
+    id_estado: number;
 }

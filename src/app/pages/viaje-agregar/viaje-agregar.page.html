@@ -51,22 +51,17 @@
   <ion-card style="box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7)">
     <ion-list inset="true">
       <ion-item>
-        <ion-input label="Patente:" [(ngModel)]="ubicacion_origen" name="patente"></ion-input>
+        <ion-input label="Ubicacion Origen:" [(ngModel)]="ubicacion_origen" name="ubicacion_origen"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input label="Marca:" [(ngModel)]="ubicacion_destino" name="marca"></ion-input>
+        <ion-input label="Ubicacion Destino:" [(ngModel)]="ubicacion_destino" name="ubicacion_destino"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input label="Modelo:" [(ngModel)]="costo" name="modelo"></ion-input>
+        <ion-input label="Costo:" [(ngModel)]="costo" name="costo"></ion-input>
       </ion-item>
-
-      <img *ngIf="imagen" [src]="imagen.src" height="100" width="100" alt="">
-        
-
-      <ion-button (click)="takePhoto()">
-        <ion-icon style="margin-right: 10px;" name="camera-outline"></ion-icon>
-        Tomar foto
-      </ion-button>
+      <ion-item>
+        <ion-input label="Estado:" [(ngModel)]="estado" name="estado"></ion-input>
+      </ion-item>
     </ion-list>
   </ion-card>
 

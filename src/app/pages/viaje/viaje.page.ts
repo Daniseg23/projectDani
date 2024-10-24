@@ -25,7 +25,7 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
   //misVehiculos: Vehiculo[] = []; //ESTO FUE CLAVE PARA QUE FUNCIONARA. Investigar por que "misVehiculos = [];" no funciona y si "misVehiculos: Vehiculo[] = []"
   p_ubicacion_origen: string = "";
   p_ubicacion_destino: string = "";
-  p_costo: string = "";
+  p_costo: number = 0;
   p_id_vehiculo: string = "";
   nombre_proyecto: string = "";
   loaded: boolean = false;
@@ -56,6 +56,9 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
         p_ubicacion_destino:dataStorage[0].viaje_ubicacion_origen,
         p_costo:dataStorage[0].viaje_costo,
         p_id_vehiculo:dataStorage[0].viaje_id_vehiculo,
+        p_fecha:dataStorage[0].viaje_fecha,
+        p_id_estado:dataStorage[0].viaje_id_estado,
+        p_nombre_proyecto:dataStorage[0].viaje_nombre_proyecto,
         token:dataStorage[0].token
       }
     );
