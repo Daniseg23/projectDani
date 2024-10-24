@@ -46,7 +46,7 @@ export class RegistroUserPage implements OnInit {
       )
     }
 
-    await this.helper.showAlert("Has ingresado exitosamente:D.", "Lee");
+    await this.helper.showAlert("Has ingresado exitosamente :D.", "Muy Bien");
     await this.router.navigateByUrl('login');
   }
 
