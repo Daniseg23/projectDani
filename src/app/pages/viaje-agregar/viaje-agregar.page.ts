@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ViajeService } from 'src/app/services/viaje.service';
+import { HelperService } from 'src/app/services/helper.service';
 import { Router } from '@angular/router';
 import { ServiciosService } from 'src/app/services/servicios.service';
 
 interface Viaje {
   costo: number;
   fecha: string;
-  ubOrigen: string;
-  ubDestino: string;
-
+  ubicacionOrigen: string;
+  ubicacionDestino: string;
 }
 
 @Component({
@@ -19,10 +20,12 @@ interface Viaje {
 export class ViajeAgregarPage {
   costo: number = 0;
   fecha: string = '';
-  ubOrigen: string = '';
-  ubDestino: string = '';
+  ubicacionOrigen: string = '';
+  ubicacionDestino: string = '';
 
-  constructor(private viajeService: ServiciosService, private router: Router) { }
+  constructor(private viajeService: ServiciosService,
+              private helper:HelperService,
+              private router: Router) { }
   
   clickPerfil(){
     this.router.navigate(['/perfil'])
@@ -40,19 +43,32 @@ export class ViajeAgregarPage {
     this.router.navigate(['/inicio'])
   }
 
-  registrarViaje() {
-    const nuevoViaje = {
-      costo: this.costo,
-      fecha: this.fecha,
-      ubOrigen: this.ubOrigen,
-      ubDestino: this.ubDestino,
-      
-    };
-    this.viajeService.agregarViaje(nuevoViaje);
-    // Limpiar los campos después de registrar el vehículo
-    this.costo = 0;
-    this.fecha = '';
-    this.ubOrigen = '';
-    this.ubDestino ='';
+  async registrarViaje(){
+    //Con esto valida que los campos se completen
+    if(this.costo > 0 && this.fecha && this.ubicacionOrigen && this.ubicacionDestino){
+      const nuevoViaje: Viaje = {
+        costo: this.costo,
+        fecha: this.fecha,
+        ubicacionOrigen: this.ubicacionOrigen,
+        ubicacionDestino: this.ubicacionDestino,
+      };
+
+      try{
+        await this.viajeService.agregarViaje(nuevoViaje);
+
+        await this.helper.showAlert('Su viaje se ha registrado exitosamente', 'Muy Bien')
+
+        this.costo = 0;
+        this.fecha = "";
+        this.ubicacionOrigen = "";
+        this.ubicacionDestino = "";
+
+        this.router.navigate(['/viaje']);
+      }catch (error){
+        await this.helper.showAlert('Lo siento, no se ha registrado su viaje deseado', 'ERROR');
+      }
+    } else{
+      await this.helper.showAlert('Completar todos los campos', 'Advertencia')
+    }
   }
-};
+}

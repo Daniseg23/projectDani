@@ -14,8 +14,8 @@ export interface Viaje {
   //Viaje
   costo: number;
   fecha: string;
-  ubOrigen: string;
-  ubDestino: string;
+  ubicacionOrigen: string;
+  ubicacionDestino: string;
 }
 
 @Injectable({
