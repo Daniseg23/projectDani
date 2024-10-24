@@ -54,9 +54,13 @@
         Todos los vehículos registrados se mostrarán en esta sección.
       </div>
     </ion-card>
+
+    <div *ngIf="loaded && vehiculo.length === 0" style="text-align: center; margin-top: 40px;">
+      <p style="font-size: 20px; font-weight: bold; margin-top: -10px; background-color: rgb(59, 59, 59); color: white;">No hay vehículos registrados en tu cuenta</p>
+    </div>
     
-    <ion-card-content *ngIf="loaded">
-      <ion-card button (click)="abrirDetalleVehiculo(i)" *ngFor="let i of vehiculo"  style="margin-top: -20px; margin-left: 0px; margin-right: 0px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
+    <ion-card-content *ngIf="vehiculo.length > 0">
+      <ion-card  button (click)="abrirDetalleVehiculo(i)" *ngFor="let i of vehiculo"  style="margin-top: -20px; margin-left: 0px; margin-right: 0px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
         <ion-card-header>
           <img alt="Silhouette of mountains" [src]="i.imagen_vehiculo" style="position: absolute; height: 90px; width: 118px; margin-bottom: -75px; margin-left: -15px;"/>
         </ion-card-header>
@@ -70,6 +74,10 @@
           </ion-card-content>
         </div>
       </ion-card>
+
+      <div style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 0px;">
+        <ion-button [routerLink]="['/agregar-auto/']" class="botonDesign" shape="round">Agregar Vehiculo </ion-button>
+      </div>
     </ion-card-content>
 
     <!-- 
@@ -122,7 +130,7 @@
         </ng-template>
       </ion-modal>
 -->
-    <div style="display: flex; justify-content: center; margin-top: 20px;">
+    <div *ngIf="loaded && vehiculo.length === 0" style="display: flex; justify-content: center; margin-top: -5px; margin-bottom: 20px;">
       <ion-button [routerLink]="['/agregar-auto/']" class="botonDesign" shape="round">Agregar Vehiculo </ion-button>
     </div>
 
