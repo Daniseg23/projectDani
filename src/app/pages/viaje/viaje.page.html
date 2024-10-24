@@ -55,17 +55,17 @@
     </div>
   </ion-card>
 
-  <div *ngIf="misViajes.length === 0" style="text-align: center; margin-top: 20px;">
+  <div *ngIf="loaded && viaje.length === 0" style="text-align: center; margin-top: 20px;">
     <p style="font-size: 20px; font-weight: bold; margin-top: -10px; background-color: rgb(59, 59, 59); color: white;">No hay viajes registrados en tu cuenta</p>
   </div>
 
-  <ion-card button (click)="clickVehiculoListar()" *ngFor="let viaje of misViajes" style="margin-top: -20px; margin-left: 5px; margin-right: 10px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
+  <ion-card button (click)="clickVehiculoListar()" *ngFor="let i of viaje" style="margin-top: -20px; margin-left: 5px; margin-right: 10px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
     <ion-card-header>
       <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" style="position: absolute; height: 90px; width: 160px; margin-bottom: -75px; margin-left: -15px;"/>
     </ion-card-header>
     <ion-card-content style="height: 90px;flex: 1; margin-left: 166px; margin-right: 5px; margin-top: -31px; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(78, 78, 78, 0.37));">
-      <p class="infoVehiculoCard">Fecha: {{ viaje.fecha }}</p>
-      <p class="infoVehiculoCard">Costo: {{ viaje.costo }}</p>
+    <!--<p class="infoVehiculoCard">Fecha: {{ viaje.fecha }}</p> -->
+      <p class="infoVehiculoCard">Costo: {{ i.costo }}</p>
     </ion-card-content>
   </ion-card>
 

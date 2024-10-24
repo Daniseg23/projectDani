@@ -1,32 +1,78 @@
 import { Component, OnInit } from '@angular/core';
-import { ViajeService } from 'src/app/services/viaje.service';
-import { HelperService } from 'src/app/services/helper.service';
+import { ViajeService } from 'src/app/services/viaje.service'; 
+import { HelperService } from 'src/app/services/helper.service'; // Para mostrar alertas
+import { StorageService } from 'src/app/services/storage.service'; // Para gestionar el almacenamiento local
 import { Router } from '@angular/router';
-import { ServiciosService } from 'src/app/services/servicios.service';
-
-interface Viaje {
-  costo: number;
-  fecha: string;
-  ubicacionOrigen: string;
-  ubicacionDestino: string;
-}
+import { Camera, CameraResultType } from '@capacitor/camera'; // Para tomar fotos
 
 @Component({
   selector: 'app-viaje-agregar',
   templateUrl: './viaje-agregar.page.html',
   styleUrls: ['./viaje-agregar.page.scss'],
 })
+export class ViajeAgregarPage implements OnInit {
+  ubicacion_origen: string = '';
+  ubicacion_destino: string = '';
+  costo: string = '';
+  id_vehiculo: number = 0;
+  imagen: any;
 
-export class ViajeAgregarPage {
-  costo: number = 0;
-  fecha: string = '';
-  ubicacionOrigen: string = '';
-  ubicacionDestino: string = '';
+  constructor(
+    private viajeService: ViajeService, // Servicio para manejar vehículos
+    private helper: HelperService, // Para mostrar alertas
+    private router: Router, // Para la navegación
+    private storageService: StorageService, // Para obtener el token almacenado
+  ) { }
 
-  constructor(private viajeService: ServiciosService,
-              private helper:HelperService,
-              private router: Router) { }
-  
+  ngOnInit() { }
+
+  // Método para registrar el vehículo
+  async registroViaje() {
+    const dataStorage = await this.storageService.obtenerStorage();
+    const token = await this.storageService.getItem('token');
+    const id_usuario = dataStorage[0]?.id_usuario;
+    
+    if(token) {
+      const req = await this.viajeService.agregarViaje(
+        {
+          p_ubicacion_origen: this.ubicacion_origen,
+          p_ubicacion_destino: this.ubicacion_destino,
+          p_costo: this.costo,
+          p_id_vehiculo: this.id_vehiculo,
+          token: token,
+          p_id_usuario: id_usuario
+        },
+        this.imagen
+      );
+      await this.helper.showAlert("Viaje agregado exitosamente.", "Éxito");
+    } else {
+      await this.helper.showAlert("Token no encontrado, inicia sesión nuevamente.", "Error");
+    }
+  }
+
+  // Método para tomar la foto del vehículo
+  async takePhoto() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+    
+    if (image.webPath) {
+      const response = await fetch(image.webPath);
+      const blob = await response.blob();
+
+      this.imagen = {
+        fname: 'foto' + image.format,
+        src: image.webPath,
+        file: blob
+      };
+    }
+
+    var imageUrl = image.webPath;
+    this.imagen.src = imageUrl;
+  }
+
   clickPerfil(){
     this.router.navigate(['/perfil'])
   }
@@ -41,34 +87,5 @@ export class ViajeAgregarPage {
 
   clickInicio(){
     this.router.navigate(['/inicio'])
-  }
-
-  async registrarViaje(){
-    //Con esto valida que los campos se completen
-    if(this.costo > 0 && this.fecha && this.ubicacionOrigen && this.ubicacionDestino){
-      const nuevoViaje: Viaje = {
-        costo: this.costo,
-        fecha: this.fecha,
-        ubicacionOrigen: this.ubicacionOrigen,
-        ubicacionDestino: this.ubicacionDestino,
-      };
-
-      try{
-        await this.viajeService.agregarViaje(nuevoViaje);
-
-        await this.helper.showAlert('Su viaje se ha registrado exitosamente', 'Muy Bien')
-
-        this.costo = 0;
-        this.fecha = "";
-        this.ubicacionOrigen = "";
-        this.ubicacionDestino = "";
-
-        this.router.navigate(['/viaje']);
-      }catch (error){
-        await this.helper.showAlert('Lo siento, no se ha registrado su viaje deseado', 'ERROR');
-      }
-    } else{
-      await this.helper.showAlert('Completar todos los campos', 'Advertencia')
-    }
   }
 }

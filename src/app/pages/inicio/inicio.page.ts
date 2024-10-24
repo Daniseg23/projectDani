@@ -45,11 +45,11 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
     
   }
 
-  async cargarViajes(){
-    let dataStorage = await this.storage.obtenerStorage();
-    const req = await this.viajeService.obtenerViaje(dataStorage[0].token);
-    this.viajes = req.data;
-  }
+  //async cargarViajes(){
+  //  let dataStorage = await this.storage.obtenerStorage();
+  //  const req = await this.viajeService.obtenerViaje(dataStorage[0].token);
+  //  this.viajes = req.data;
+ // }
 
   async cargarUsuario(){
     let dataStorage = await this.storage.obtenerStorage();
@@ -94,7 +94,7 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
   //-------------------------
 
   ngOnInit() {
-    this.cargarViajes();
+   // this.cargarViajes();
     this.cargarUsuario();
     this.correo = this.activateRoute.snapshot.params["correo"];
     console.log("PARAMETRO URL ---> ", this.correo);

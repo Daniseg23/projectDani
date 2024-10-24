@@ -10,16 +10,71 @@ export class ViajeService {
 
   constructor(private http:HttpClient) { }
 
-  async obtenerViaje(parToken:string){
+  async agregarViaje(datosViaje: dataBodyViaje, imgFileAuto: any) {
     try {
-      const params = {
-        token:parToken
-      };
-      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'viaje/obtener',{params}));
+      const formData = new FormData();
+
+      // Agregar los datos del auto al formData
+      formData.append('p_id_usuario', datosViaje.p_id_usuario.toString());
+      formData.append('p_ubicacion_origen', datosViaje.p_ubicacion_origen);
+      formData.append('p_ubicacion_destino', datosViaje.p_ubicacion_destino);
+      formData.append('p_costo', datosViaje.p_costo);
+      formData.append('p_id_vehiculo', datosViaje.p_id_vehiculo.toString());
+      if (datosViaje.token) {
+        formData.append('token', datosViaje.token);
+      }
+
+      // Agregar la imagen del auto al formData
+      formData.append('image', imgFileAuto.file, imgFileAuto.name); //Importa que el nombre de la var sea identico al nombre que tienen asignado en el apiURL, es indiferene si tiene el mismo nombre que el modelo (usuario.ts)
+
+      // Enviar el request a la API para agregar el auto
+      const response = await lastValueFrom(this.http.post<any>(environment.apiUrl + 'viaje/agregar', formData));
       return response;
+
     } catch (error) {
       throw error;
     }
   }
 
+  // Método para obtener un auto por su patente
+  async obtenerViaje(data: dataGetViaje) {
+    try {
+      const params = {
+        token: data.token,
+        p_id_usuario: data.p_id_usuario,
+        p_ubicacion_origen: data.p_ubicacion_origen,
+        p_ubicacion_destino: data.p_ubicacion_destino,
+        p_costo: data.p_costo,
+        p_id_vehiculo: data.p_id_vehiculo
+      };
+
+      // Enviar el request a la API para obtener los datos del auto
+      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'viaje/obtener', { params }));
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+
+
+// Interface para los datos del auto en el cuerpo de la petición
+interface dataBodyViaje {
+  p_id_usuario: number;
+  p_ubicacion_origen: string;
+  p_ubicacion_destino: string;
+  p_costo: string;
+  p_id_vehiculo: number;
+  token?: string;
+}
+
+// Interface para los datos necesarios para obtener un auto
+interface dataGetViaje {
+  p_id_usuario: number;
+  p_ubicacion_origen: string;
+  p_ubicacion_destino: string;
+  p_costo: string;
+  p_id_vehiculo: number;
+  token: string;
 }
