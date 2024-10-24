@@ -5,12 +5,14 @@ import { ViewDidEnter, ViewWillEnter, ViewDidLeave, ViewWillLeave } from '@ionic
 import { ElementRef, ViewChildren, ViewChild } from '@angular/core';
 import type { QueryList } from '@angular/core';
 import type { Animation } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { AnimationController, IonCard } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { VehiculoService } from 'src/app/services/vehiculo.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserModel } from 'src/app/models/usuario';
 import { HelperService } from 'src/app/services/helper.service';
+import { VehiculoDetallesComponent } from '../modal/vehiculo-detalles/vehiculo-detalles.component';
 //import { Vehiculo } from 'src/app/services/servicios.service'; //ESTO FUE CLAVE PARA QUE FUNCIONARA, Por que importar vehiculo aparte si ya estoy importando todo con serviciosService?
 
 
@@ -31,10 +33,11 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
   nombre_proyecto: string = "";
   loaded: boolean = false;
   vehiculo: UserModel[]=[];
-
+  message: string | undefined;
 
   @ViewChild(IonCard, { read: ElementRef }) card: ElementRef<HTMLModElement> | undefined;
   private animation: Animation | undefined;
+
 
   constructor(private router:Router,
               private activateRoute:ActivatedRoute,
@@ -42,7 +45,8 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
               private firebase:FirebaseService,
               private vehiculoService:VehiculoService,
               private storage:StorageService,
-              private helper:HelperService
+              private helper:HelperService,
+              private modalCtrl: ModalController
   ) { }
 
   async cargarVehiculo(){
@@ -61,11 +65,37 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
       }
     );
     this.vehiculo = req.data.filter((vehiculo: any) => vehiculo.id_usuario === id_usuario);  //Lo que hace es filtrar el array de vehiculos y me devuelve el vehiculo que tiene asignado un id_usuario que coincide con el id_usuario que tengo en el storage
-    console.log("Datos de los vehículos:", this.vehiculo);
+    console.log("Datos de todos los vehiculos:", this.vehiculo);
   } catch (error: any) {
     console.error("Error al cargar los datos del vehículo:", error);
   
   }
+
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: VehiculoDetallesComponent,
+    });
+    modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.message = `Hello, ${data}!`;
+    }
+  }
+
+  async abrirDetalleVehiculo(vehiculo: any) {
+    //const vehiculo = this.vehiculo.find(v => v.id_vehiculo === id);
+    const modal = await this.modalCtrl.create({
+      component: VehiculoDetallesComponent,
+      componentProps: { vehiculo }
+    });
+    console.log("Datos del vehiculo" , vehiculo);
+    return await modal.present();
+  }
+  
+
   ngOnInit() {
     //this.misVehiculos = this.vehiculoService.obtenerVehiculos();
     this.cargarVehiculo();
