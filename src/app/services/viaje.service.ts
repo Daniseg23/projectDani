@@ -35,23 +35,13 @@ export class ViajeService {
     }
   }
 
-  // Método para obtener un auto por su patente
-  async obtenerViaje(data: dataGetViaje) {
+  // Método para obtener viaje/s por token
+  async obtenerViaje(parToken:string){
     try {
       const params = {
-        token: data.token,
-        p_id_usuario: data.p_id_usuario,
-        p_ubicacion_origen: data.p_ubicacion_origen,
-        p_ubicacion_destino: data.p_ubicacion_destino,
-        p_costo: data.p_costo,
-        p_id_vehiculo: data.p_id_vehiculo,
-        p_fecha: data.p_fecha.toISOString(),
-        p_nombre_proyecto: data.p_nombre_proyecto,
-        p_id: data.p_id
+        token:parToken
       };
-
-      // Enviar el request a la API para obtener los datos del auto
-      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'viaje/obtener', { params }));
+      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'viaje/obtener',{params}));
       return response;
     } catch (error) {
       throw error;

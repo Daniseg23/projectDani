@@ -68,6 +68,19 @@ patente: any;
       throw error;
     }
   }
+
+  async obtenerVehiculoViaje(parToken:string) {
+    try {
+      const params = {
+        token: parToken,
+      };
+      // Enviar el request a la API para obtener los datos del auto
+      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'vehiculo/obtener', { params }));
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 

@@ -12,6 +12,7 @@ import { ViajeService } from 'src/app/services/viaje.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserModel } from 'src/app/models/usuario';
 import { HelperService } from 'src/app/services/helper.service';
+import { VehiculoService } from 'src/app/services/vehiculo.service';
 //import { VehiculoDetallesComponent } from '../modal/vehiculo-detalles/vehiculo-detalles.component';
 //import { Vehiculo } from 'src/app/services/servicios.service'; //ESTO FUE CLAVE PARA QUE FUNCIONARA, Por que importar vehiculo aparte si ya estoy importando todo con serviciosService?
 
@@ -29,7 +30,8 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
   p_id_vehiculo: number = 0;
   nombre_proyecto: string = "";
   loaded: boolean = false;
-  viaje: UserModel[]=[];
+  viaje: UserModel[] = [];
+  vehiculo: any[] = [];
   message: string | undefined;
 
   @ViewChild(IonCard, { read: ElementRef }) card: ElementRef<HTMLModElement> | undefined;
@@ -43,34 +45,71 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
               private viajeService:ViajeService,
               private storage:StorageService,
               private helper:HelperService,
-              private modalCtrl: ModalController
+              private modalCtrl: ModalController,
+              private vehiculoService:VehiculoService
   ) { }
+
+
+  ngOnInit() {
+    //this.misVehiculos = this.vehiculoService.obtenerVehiculos();
+    this.cargarViaje();
+    this.cargarVehiculo();
+    setTimeout(() =>{
+      this.loaded = true;
+    },1000);
+  }
+
+  async cargarVehiculo(){
+    let dataStorage = await this.storage.obtenerStorage();
+    const id_usuario = dataStorage[0].id_usuario;
+    const req = await this.vehiculoService.obtenerVehiculoViaje(dataStorage[0].token);
+    this.vehiculo = req.data.filter((vehiculo: any) => vehiculo.id_usuario === id_usuario);  //Lo que hace es filtrar el array de vehiculos y me devuelve el vehiculo que tiene asignado un id_usuario que coincide con el id_usuario que tengo en el storage
+    console.log("Datos de todos los viajes:", this.vehiculo);
+  }
 
   async cargarViaje(){
     let dataStorage = await this.storage.obtenerStorage();
     const id_usuario = dataStorage[0].id_usuario;
-    const req = await this.viajeService.obtenerViaje(
-      {
-        p_ubicacion_origen:dataStorage[0].viaje_ubicacion_origen,
-        p_id_usuario:dataStorage[0].usuario_id,
-        p_ubicacion_destino:dataStorage[0].viaje_ubicacion_origen,
-        p_costo:dataStorage[0].viaje_costo,
-        p_id_vehiculo:dataStorage[0].viaje_id_vehiculo,
-        p_fecha:dataStorage[0].viaje_fecha,
-        p_id_estado:dataStorage[0].viaje_id_estado,
-        p_nombre_proyecto:dataStorage[0].viaje_nombre_proyecto,
-        p_id:dataStorage[0].id_vehiculo,
-        token:dataStorage[0].token
-      }
-    );
+    const req = await this.viajeService.obtenerViaje(dataStorage[0].token);
     this.viaje = req.data.filter((viaje: any) => viaje.id_usuario === id_usuario);  //Lo que hace es filtrar el array de vehiculos y me devuelve el vehiculo que tiene asignado un id_usuario que coincide con el id_usuario que tengo en el storage
-    console.log("Datos de todos los vehiculos:", this.viaje);
+    console.log("Datos de todos los viajes:", this.viaje);
   } catch (error: any) {
-    console.error("Error al cargar los datos del vehículo:", error);
+    console.error("Error al cargar los datos de viaje:", error);
   
   }
 
 
+  async clickAgregarViaje() {
+    if (this.vehiculo.length === 0) {
+      await this.helper.showAlert('No tienes vehículos registrados en su cuenta. Por favor, registra un vehículo antes de agregar un viaje.', 'Error');
+    } else {
+      this.router.navigate(['/viaje-agregar']);
+    }
+  }
+
+  estadoViaje(id_estado: number): string {
+    switch (id_estado) {
+      case 1:
+        return 'Disponible';
+      case 2:
+        return 'En ruta';
+      case 3:
+        return 'Finalizado';
+      default:
+        return 'Desconocido';
+    }
+  }
+
+  EstadoViajeColor(id_estado: number): string {
+    switch (id_estado) {
+      case 2:
+        return 'naranjo';
+      case 3:
+        return 'rojo';
+      default:
+        return '';
+    }
+  }
   //async openModal() {
   //  const modal = await this.modalCtrl.create({
   //    component: VehiculoDetallesComponent,
@@ -93,15 +132,6 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
    // console.log("Datos del vehiculo" , vehiculo);
     //return await modal.present();
   //}
-  
-
-  ngOnInit() {
-    //this.misVehiculos = this.vehiculoService.obtenerVehiculos();
-    this.cargarViaje();
-    setTimeout(() =>{
-      this.loaded = true;
-    },1000)
-  }
 
   ionViewDidLeave(): void {
     console.log("view did leave");

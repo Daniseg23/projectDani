@@ -19,4 +19,6 @@ export interface UserModel{
     fecha: string;
     id_estado: number;
     id: number;
+    ubicacion_origen: string;
+    ubicacion_destino: string;
 }

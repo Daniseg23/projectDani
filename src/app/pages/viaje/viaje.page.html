@@ -48,37 +48,41 @@
     </ion-header>
   </div>
 
-  <ion-card style="position: relative; margin: 3px; margin-bottom: 35px; height: 200px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7)" >
+  <ion-card style="position: relative; margin: 3px; margin-bottom: 20px; height: 200px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7)" >
     <img alt="Silhouette of mountains" src="assets/listaViajes.PNG" style=" margin-top: -20px; width: 100%;"/>
     <div class="descripcionListaVehiculo">
       Todos los viajes registrados se mostrarán en esta sección.
     </div>
   </ion-card>
 
-  <div *ngIf="loaded && viaje.length === 0" style="text-align: center; margin-top: 20px;">
-    <p style="font-size: 20px; font-weight: bold; margin-top: -10px; background-color: rgb(59, 59, 59); color: white;">No hay viajes registrados en tu cuenta</p>
+  <div *ngIf="loaded && viaje.length === 0" style="text-align: center; margin-top: 40px;">
+    <p style="font-size: 20px; font-weight: bold; margin-top: -10px; background-color: rgb(59, 59, 59); color: white;">No hay vehículos registrados en tu cuenta</p>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+      <ion-button (click)="clickAgregarViaje()" class="botonDesign" shape="round">Agregar Viaje</ion-button>
+    </div>
   </div>
 
-  <ion-card button (click)="clickVehiculoListar()" *ngFor="let i of viaje" style="margin-top: -20px; margin-left: 5px; margin-right: 10px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
-    <ion-card-header>
-      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" style="position: absolute; height: 90px; width: 160px; margin-bottom: -75px; margin-left: -15px;"/>
-    </ion-card-header>
-    <ion-card-content style="height: 90px;flex: 1; margin-left: 166px; margin-right: 5px; margin-top: -31px; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(78, 78, 78, 0.37));">
-    <!--<p class="infoVehiculoCard">Fecha: {{ viaje.fecha }}</p> -->
-      <p class="infoVehiculoCard">Costo: {{ i.costo }}</p>
-    </ion-card-content>
-  </ion-card>
+  <ion-card-content *ngIf="viaje.length > 0">
+    <ion-card  button (click)="clickVehiculoListar()" *ngFor="let i of viaje"  style="margin-top: -20px; margin-left: -10px; margin-right: -10px; height: 100px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7)">
+      <ion-card-header>
+        <img style="position: absolute; height: 90px; width: 110px; margin-bottom: -75px; margin-left: -15px; background-color: rgb(100, 100, 100);"/>
+        <p class="estado">Estado</p>
+        <p class="estadoViaje" [ngClass]="EstadoViajeColor(i.id_estado)">{{ estadoViaje(i.id_estado) }}</p>
+      </ion-card-header>
+      <div style="height: 90px;flex: 1; margin-left: 118px; margin-right: 5px; margin-top: -31px; background: linear-gradient(rgba(235, 235, 235, 0.7), rgba(78, 78, 78, 0.37));">
+        <ion-card-content>
+          <div style="display: flex; flex-direction: column; margin-top: -15px;">
+            <p class="infoViajeCard">Origen: {{ i.ubicacion_origen }}</p>
+            <p class="infoViajeCard">Destino: {{ i.ubicacion_destino}}</p>
+            <p class="infoViajeCard">Costo: {{ i.costo }}</p>
+          </div>
+        </ion-card-content>
+      </div>
+    </ion-card>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+      <ion-button [routerLink]="['/viaje-agregar/']" class="botonDesign" shape="round">Agregar Viaje </ion-button>
+    </div>
+  </ion-card-content>
 
-  <!-- 
-  <ion-card button (click)="clickFunction()" *ngIf="vehiculoRegistrado" style="margin-top: -20px;margin-left: 5px; margin-right: 10px; height: 100px;">
-    <ion-card-header>
-      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" style="position: absolute; height: 90px; width: 160px; margin-bottom: -75px; margin-left: -15px;"/>
-    </ion-card-header>
-  </ion-card> 
-    -->
 
-  <div style="display: flex; justify-content: center; margin-top: 20px;">
-    <ion-button [routerLink]="['/viaje-agregar/']" class="botonDesign" shape="round">Agregar Viaje </ion-button>
-  </div>
   
-</ion-content>

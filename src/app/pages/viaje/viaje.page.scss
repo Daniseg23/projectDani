@@ -11,13 +11,45 @@
     text-shadow: 1px 1px 3px black; 
 }
 
-.infoVehiculoCard{
-    font-size: 18px;
+.estado{
+    position: absolute;
+    font-size: 17px;
     font-weight: bold;
-    margin-left: -13px;
-    margin-bottom: 5px;
+    top: 25px;
+    left: 33px;
     color: white;
     text-shadow: 1px 1px 2px black;
+}
+
+.estadoViaje{
+    position: absolute;
+    font-size: 17px;
+    font-weight: bold;
+    top: 50px; /* Mantiene la posición vertical */
+    left: 15.23%; /* Centra horizontalmente */
+    transform: translateX(-50%); /* Ajusta la posición para centrar */
+    color: greenyellow;
+    text-shadow: 1px 1px 2px black;
+}
+
+.estadoViaje.naranjo {
+    color: orange;
+  }
+  
+  .estadoViaje.rojo {
+    color: red;
+  }
+
+.infoViajeCard{
+    position: relative;
+    font-size: 17px;
+    margin-left: -16px;
+    margin-bottom: 4px;
+    color: black; /* Cambiado a negro */
+    text-shadow: 1px 1px 2px rgba(150, 150, 150, 0.5); /* Sombra sutil */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .botonDesign{
