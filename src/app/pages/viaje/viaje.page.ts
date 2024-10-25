@@ -26,7 +26,7 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
   p_ubicacion_origen: string = "";
   p_ubicacion_destino: string = "";
   p_costo: number = 0;
-  p_id_vehiculo: string = "";
+  p_id_vehiculo: number = 0;
   nombre_proyecto: string = "";
   loaded: boolean = false;
   viaje: UserModel[]=[];
@@ -59,6 +59,7 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
         p_fecha:dataStorage[0].viaje_fecha,
         p_id_estado:dataStorage[0].viaje_id_estado,
         p_nombre_proyecto:dataStorage[0].viaje_nombre_proyecto,
+        p_id:dataStorage[0].id_vehiculo,
         token:dataStorage[0].token
       }
     );

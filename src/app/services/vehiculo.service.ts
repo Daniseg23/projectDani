@@ -57,7 +57,8 @@ patente: any;
         p_modelo: data.p_modelo,
         p_anio: data.p_anio,
         p_color: data.p_color,
-        p_tipo_combustible: data.p_tipo_combustible
+        p_tipo_combustible: data.p_tipo_combustible,
+        p_id_vehiculo: data.p_id_vehiculo
       };
 
       // Enviar el request a la API para obtener los datos del auto
@@ -92,5 +93,6 @@ interface dataGetAuto {
   p_anio: number;
   p_color: string;
   p_tipo_combustible: string;
+  p_id_vehiculo: number;
   token: string;
 }

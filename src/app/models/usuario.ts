@@ -18,4 +18,5 @@ export interface UserModel{
     costo: number;
     fecha: string;
     id_estado: number;
+    id: number;
 }

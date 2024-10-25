@@ -61,6 +61,7 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
         p_anio:dataStorage[0].vehiculo_anio,
         p_color:dataStorage[0].vehiculo_color,
         p_tipo_combustible:dataStorage[0].vehiculo_tipo_combustible,
+        p_id_vehiculo:dataStorage[0].vehiculo_id,
         token:dataStorage[0].token
       }
     );

@@ -62,6 +62,14 @@
       <ion-item>
         <ion-input label="Estado:" [(ngModel)]="estado" name="estado"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label>Vehículo:</ion-label>
+        <ion-select [(ngModel)]="id" name="p_id">
+          <ion-select-option *ngFor="let i of vehiculo" [value]="i.id">
+            {{ i.marca }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
     </ion-list>
   </ion-card>
 
