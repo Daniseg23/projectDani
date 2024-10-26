@@ -47,8 +47,22 @@ export class ViajeService {
       throw error;
     }
   }
-}
 
+  async actualizarEstadoViaje(p_id: number, p_id_estado: number, token: string) {
+    try {
+      const body = {
+        p_id,
+        p_id_estado,
+        token
+      };
+
+      const response = await lastValueFrom(this.http.post<any>(environment.apiUrl + 'viaje/actualiza_estado_viaje', body));
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
 
 
 // Interface para los datos del auto en el cuerpo de la petición

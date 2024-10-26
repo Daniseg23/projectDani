@@ -79,6 +79,7 @@ export class ViajeAgregarPage implements OnInit {
         },
       );
       await this.helper.showAlert("Viaje agregado exitosamente.", "Éxito");
+      this.router.navigate(['/viaje'])
     } else {
       await this.helper.showAlert("Token no encontrado, inicia sesión nuevamente.", "Error");
     }

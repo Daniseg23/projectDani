@@ -21,4 +21,5 @@ export interface UserModel{
     id: number;
     ubicacion_origen: string;
     ubicacion_destino: string;
+    id_viaje: number;
 }

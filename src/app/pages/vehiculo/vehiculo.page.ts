@@ -99,7 +99,6 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
 
   ngOnInit() {
     //this.misVehiculos = this.vehiculoService.obtenerVehiculos();
-    this.cargarVehiculo();
     setTimeout(() =>{
       this.loaded = true;
     },1000)
@@ -113,6 +112,7 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
     console.log("view will leave");
     
   }
+
   ionViewDidEnter(): void {
     console.log("view did enter");
     if (this.card) {
@@ -128,6 +128,7 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
 
   ionViewWillEnter(): void {
     console.log("view will enter");
+    this.cargarVehiculo()
     
    }
 

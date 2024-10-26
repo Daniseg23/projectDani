@@ -52,7 +52,6 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
 
   ngOnInit() {
     //this.misVehiculos = this.vehiculoService.obtenerVehiculos();
-    this.cargarViaje();
     this.cargarVehiculo();
     setTimeout(() =>{
       this.loaded = true;
@@ -67,23 +66,37 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
     console.log("Datos de todos los viajes:", this.vehiculo);
   }
 
-  async cargarViaje(){
+  async cargarViaje(){ 
     let dataStorage = await this.storage.obtenerStorage();
-    const id_usuario = dataStorage[0].id_usuario;
+    //const id_usuario = dataStorage[0].id_usuario;
     const req = await this.viajeService.obtenerViaje(dataStorage[0].token);
-    this.viaje = req.data.filter((viaje: any) => viaje.id_usuario === id_usuario);  //Lo que hace es filtrar el array de vehiculos y me devuelve el vehiculo que tiene asignado un id_usuario que coincide con el id_usuario que tengo en el storage
+    //this.viaje = req.data.filter((viaje: any) => viaje.id_usuario === id_usuario); //Lo que hace es filtrar el array de vehiculos y me devuelve el vehiculo que tiene asignado un id_usuario que coincide con el id_usuario que tengo en el storage
+    this.viaje = req.data.filter((viaje: any) => viaje.id_usuario && viaje.id_estado > 0);
     console.log("Datos de todos los viajes:", this.viaje);
   } catch (error: any) {
     console.error("Error al cargar los datos de viaje:", error);
-  
   }
-
 
   async clickAgregarViaje() {
     if (this.vehiculo.length === 0) {
       await this.helper.showAlert('No tienes vehículos registrados en su cuenta. Por favor, registra un vehículo antes de agregar un viaje.', 'Error');
     } else {
       this.router.navigate(['/viaje-agregar']);
+    }
+  }
+
+  async actualizarViaje(id_viaje: number, id_estado: number) {
+    try {
+      const dataStorage = await this.storage.obtenerStorage();
+      const token = dataStorage[0].token;
+
+      const response = await this.viajeService.actualizarEstadoViaje(id_viaje, id_estado, token);
+      console.log('Viaje actualizado:', response);
+
+      // Recargar los viajes después de actualizar uno
+      this.cargarViaje();
+    } catch (error: any) {
+      console.error('Error al actualizar el viaje:', error);
     }
   }
 
@@ -94,7 +107,7 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
       case 2:
         return 'En ruta';
       case 3:
-        return 'Finalizado';
+        return 'Completado';
       default:
         return 'Desconocido';
     }
@@ -110,28 +123,6 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
         return '';
     }
   }
-  //async openModal() {
-  //  const modal = await this.modalCtrl.create({
-  //    component: VehiculoDetallesComponent,
-   // });
-   // modal.present();
-
-   // const { data, role } = await modal.onWillDismiss();
-
-    //if (role === 'confirm') {
-     // this.message = `Hello, ${data}!`;
-   // }
- // }
-
- // async abrirDetalleVehiculo(vehiculo: any) {
-   // //const vehiculo = this.vehiculo.find(v => v.id_vehiculo === id);
-    //const modal = await this.modalCtrl.create({
-     // component: VehiculoDetallesComponent,
-     // componentProps: { vehiculo }
-    //});
-   // console.log("Datos del vehiculo" , vehiculo);
-    //return await modal.present();
-  //}
 
   ionViewDidLeave(): void {
     console.log("view did leave");
@@ -141,7 +132,7 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
     console.log("view will leave");
     
   }
-  ionViewDidEnter(): void {
+  ionViewDidEnter(): void { 
     console.log("view did enter");
     if (this.card) {
       this.animation = this.animationCtrl
@@ -156,6 +147,7 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
 
   ionViewWillEnter(): void {
     console.log("view will enter");
+    this.cargarViaje();  //cada vez que se agregue un viaje desde la vista "viaje-agregar" se recargaran los viajes en al vista "viaje", como se hace en la vista "vehiculo"
     
    }
 
@@ -163,11 +155,11 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
   viajes(){
     console.log('viajes');
     //redirige al usuario a la vista "viaje"
-    this.router.navigateByUrl('viajes')
+    this.router.navigateByUrl('viajes') 
   }
 
   clickPerfil(){
-    this.router.navigate(['/perfil'])
+    this.router.navigate(['/perfil']) 
   }
 
   clickVehiculo(){

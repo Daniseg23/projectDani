@@ -10,13 +10,13 @@ import { Vehiculo } from 'src/app/services/servicios.service'; //ESTO FUE CLAVE 
   styleUrls: ['./vehiculo-listar.page.scss'],
 })
 export class VehiculoListarPage implements OnInit {
-  misVehiculos: Vehiculo[] = []; //ESTO FUE CLAVE PARA QUE FUNCIONARA. Investigar por que "misVehiculos = [];" no funciona y si "misVehiculos: Vehiculo[] = []"
+  //misVehiculos: Vehiculo[] = []; //ESTO FUE CLAVE PARA QUE FUNCIONARA. Investigar por que "misVehiculos = [];" no funciona y si "misVehiculos: Vehiculo[] = []"
 
 
   constructor(private router: Router, private vehiculoService: ServiciosService) { }
 
   ngOnInit() {
-    this.misVehiculos = this.vehiculoService.obtenerVehiculos();
+    //this.misVehiculos = this.vehiculoService.obtenerVehiculos();
   }
   
   clickPerfil(){

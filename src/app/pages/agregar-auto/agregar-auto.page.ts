@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ViewDidEnter, ViewWillEnter, ViewDidLeave, ViewWillLeave } from '@ionic/angular';
+import { AnimationController, Animation, IonCard } from '@ionic/angular';
 import { VehiculoService } from 'src/app/services/vehiculo.service'; // Servicio para manejar vehículos
 import { HelperService } from 'src/app/services/helper.service'; // Para mostrar alertas
 import { StorageService } from 'src/app/services/storage.service'; // Para gestionar el almacenamiento local
@@ -19,13 +21,16 @@ export class AgregarAutoPage implements OnInit {
   patente: string = '';
   tipo_combustible: string = '';
   imagen: any;
-
   constructor(
     private vehiculoService: VehiculoService, // Servicio para manejar vehículos
+    private animationCtrl: AnimationController,
     private helper: HelperService, // Para mostrar alertas
     private router: Router, // Para la navegación
     private storageService: StorageService, // Para obtener el token almacenado
   ) { }
+
+  @ViewChild(IonCard, { read: ElementRef }) card: ElementRef<HTMLModElement> | undefined;
+  private animation: Animation | undefined;
 
   ngOnInit() { }
 
@@ -53,6 +58,7 @@ export class AgregarAutoPage implements OnInit {
     } else {
       await this.helper.showAlert("Token no encontrado, inicia sesión nuevamente.", "Error");
     }
+    this.router.navigate(['/vehiculo'])
   }
 
   // Método para tomar la foto del vehículo
@@ -78,6 +84,32 @@ export class AgregarAutoPage implements OnInit {
     this.imagen.src = imageUrl;
   }
 
+  ionViewDidLeave(): void {
+    console.log("view did leave");
+    
+  }
+  ionViewWillLeave(): void {
+    console.log("view will leave");
+    
+  }
+
+ionViewDidEnter(): void {
+    console.log("view did enter");
+    if (this.card) {
+      this.animation = this.animationCtrl
+      .create()
+      .addElement(this.card.nativeElement)
+      .duration(1500)
+      .iterations(Infinity)
+      .fromTo('transform', 'translateX(0px)', 'translateX(100px)')
+      .fromTo('opacity', '1', '0.2');
+    }
+  }
+
+  ionViewWillEnter(): void {
+    console.log("view will enter");
+  }
+  
   clickPerfil(){
     this.router.navigate(['/perfil'])
   }
