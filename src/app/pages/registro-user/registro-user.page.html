@@ -1,36 +1,72 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>registro</ion-title>
+    <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="box">
+<ion-content>
+  <div style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgb(255, 255, 255)); padding: 20px 0px; height: 100%; display: flex; justify-content: center; align-items: center;"></div>
+
+  <!-- Título en el fondo -->
+  <div style="position: absolute; top: 6%; left: 50%; transform: translate(-50%, -50%); z-index: 1; opacity: 0.5; font-size: 50px; font-weight: bold; color: white; text-align: center;">
+    Regístrate
+  </div>
+
+  <div class="box" style="max-width: 400px; width: 100%; padding: 10px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); bottom: 5px;">
     <ion-list>
-      <ion-item >
-        <ion-input [(ngModel)]="correo" label="Correo"></ion-input>
-      </ion-item>
       <ion-item>
-        <ion-input [(ngModel)]="contrasena" label="Contraseña"></ion-input>
+        <ion-label position="floating">Correo</ion-label>
+        <ion-input [(ngModel)]="correo" type="email" required></ion-input>
       </ion-item>
-      <ion-item >
-        <ion-input [(ngModel)]="nombre" label="Nombre"></ion-input>
+      <!-- Mensaje de error si el campo de correo está vacío después de un intento de registro -->
+      <p *ngIf="intentoRegistro && !correo" style="color: red; font-size: 14px; margin-top: 5px;">
+        El campo de correo es obligatorio.
+      </p>
+
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [(ngModel)]="contrasena" type="password" required minlength="7"></ion-input>
       </ion-item>
-      <ion-item >
-        <ion-input [(ngModel)]="telefono" label="Telefono"></ion-input>
+      <p *ngIf="contrasena && contrasena.length < 7" style="color: red; font-size: 14px; margin-top: 5px;">
+        La contraseña debe tener al menos 7 caracteres.
+      </p>
+
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="nombre" required></ion-input>
       </ion-item>
+      <!-- Mensaje de error si el campo de nombre está vacío después de un intento de registro -->
+      <p *ngIf="intentoRegistro && !nombre" style="color: red; font-size: 14px; margin-top: 5px;">
+        El campo de nombre es obligatorio.
+      </p>
 
+      <ion-item>
+        <ion-label position="floating">Teléfono</ion-label>
+        <ion-input [(ngModel)]="telefono" type="tel" required></ion-input>
+      </ion-item>
+      <!-- Mensaje de error si el campo de teléfono está vacío después de un intento de registro -->
+      <p *ngIf="intentoRegistro && !telefono" style="color: red; font-size: 14px; margin-top: 5px;">
+        El campo de teléfono es obligatorio.
+      </p>
 
-        <img src="assets/img/catdog.jpg" alt="">
+      <img src="assets/img/catdog.jpg" alt="" style="margin: 10px 0;">
 
-        <ion-button (click) = "takePhoto()">
-          <ion-icon style="margin-right: 10px;" name="camera-outline"></ion-icon>
-          Tomar foto
-        </ion-button>
+      <ion-button fill="clear" (click)="takePhoto()" style="flex: 1; padding: 10px; font-size: 20px; display: flex; align-items: center; justify-content: center;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <ion-icon name="camera-outline" style="margin-bottom: 5px; color: black;"></ion-icon>
+          <span style="text-decoration: underline; margin-bottom: 5px;">
+            Adjuntar foto
+          </span>
+          <img *ngIf="imagen" [src]="imagen.src" height="100" width="100" alt="" style="border-radius: 4px;">
+        </div>
+      </ion-button>
+
+      <ion-button expand="full" (click)="registro()" style="margin-top: 20px; --background: linear-gradient(rgba(0,0,0,0.5), black) ;">
+        <ion-icon style="margin-right: -10px;"></ion-icon>
+        Registrarse
+      </ion-button>
+      
     </ion-list>
-
-    <ion-button  (click)="registro()"> Registro</ion-button>
 
   </div>
 </ion-content>
-

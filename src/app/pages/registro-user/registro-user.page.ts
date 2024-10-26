@@ -12,67 +12,73 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./registro-user.page.scss'],
 })
 export class RegistroUserPage implements OnInit {
+  correo: string = "";
+  contrasena: string = "";
+  telefono: string = "";
+  nombre: string = "";
+  imagen: any;
+  intentoRegistro: boolean = false; // Nueva propiedad
 
-  correo:string = "";
-  contrasena:string = "";
-  telefono:string = "";
-  nombre:string = "";
-  imagen:any;
+  constructor(
+    private firebase: FirebaseService, 
+    private usuarioService: UsuarioService,
+    private helper: HelperService,
+    private router: Router,
+    private storageService: StorageService
+  ) { }
 
-  constructor(private firebase:FirebaseService, 
-              private usuarioService: UsuarioService,
-              private helper:HelperService,
-              private router:Router,
-              private storageService:StorageService) { }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
+  async registro() {
+    this.intentoRegistro = true; // Marcar que se intentó registrar
 
-  async registro(){
-    const userFirebase = await this.firebase.registro(this.correo, this.contrasena);
-    const token = await userFirebase.user?.getIdToken();
-
-
-    if(token){
-      await this.storageService.setItem('token', token);
-      const req = await this.usuarioService.agregarUsuario(
-        {
-          p_correo_electronico:this.correo,
-          p_nombre:this.nombre,
-          p_telefono:this.telefono,
-          token:token
-        },
-        this.imagen
-      )
+    // Validación de longitud mínima de contraseña
+    if (this.contrasena.length < 7) {
+      await this.helper.showAlert("La contraseña debe tener al menos 7 caracteres.", "Error de Validación");
+      return;
     }
 
-    await this.helper.showAlert("Has ingresado exitosamente :D.", "Muy Bien");
-    await this.router.navigateByUrl('login');
+    try {
+      const userFirebase = await this.firebase.registro(this.correo, this.contrasena);
+      const token = await userFirebase.user?.getIdToken();
+
+      if (token) {
+        await this.storageService.setItem('token', token);
+        const req = await this.usuarioService.agregarUsuario(
+          {
+            p_correo_electronico: this.correo,
+            p_nombre: this.nombre,
+            p_telefono: this.telefono,
+            token: token
+          },
+          this.imagen
+        );
+      }
+
+      await this.helper.showAlert("Has ingresado exitosamente :D.", "Muy Bien");
+      await this.router.navigateByUrl('login');
+    } catch (error) {
+      await this.helper.showAlert("Hubo un problema durante el registro. Intenta nuevamente.", "Error");
+      console.error(error);
+    }
   }
 
-
-
-  async takePhoto(){
+  async takePhoto() {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
       resultType: CameraResultType.Uri
     });
     
-    if (image.webPath){
+    if (image.webPath) {
       const response = await fetch(image.webPath);
       const blob = await response.blob();
 
       this.imagen = {
-        fname: 'foto' + image.format,
+        fname: 'foto.' + image.format,
         src: image.webPath,
         file: blob
-      }
+      };
     }
-
-
-    var imageUrl = image.webPath;
-    this.imagen.src = imageUrl;
   }
-
 }
