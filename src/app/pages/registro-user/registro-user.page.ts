@@ -18,6 +18,7 @@ export class RegistroUserPage implements OnInit {
   nombre: string = "";
   imagen: any;
   intentoRegistro: boolean = false; // Nueva propiedad
+  usuario: any; // Declarar la propiedad usuario
 
   constructor(
     private firebase: FirebaseService, 
@@ -57,6 +58,7 @@ export class RegistroUserPage implements OnInit {
 
       await this.helper.showAlert("Has ingresado exitosamente :D.", "Muy Bien");
       await this.router.navigateByUrl('login');
+      this.cargarUsuario()
     } catch (error) {
       await this.helper.showAlert("Hubo un problema durante el registro. Intenta nuevamente.", "Error");
       console.error(error);
@@ -80,5 +82,19 @@ export class RegistroUserPage implements OnInit {
         file: blob
       };
     }
+  }
+
+  async cargarUsuario(){
+    let dataStorage = await this.storageService.obtenerStorage();
+    
+    const req = await this.usuarioService.obtenerUsuario(
+      {
+        p_correo:dataStorage[0].usuario_correo,
+        token:dataStorage[0].token
+      }
+    );
+    this.correo = req.data[0].correo_electronico;
+    console.log("DATA INICIO USUARIO ", this.usuario);
+    console.log("DATA INICIO USUARIO ", this.usuario);
   }
 }

@@ -24,6 +24,7 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
   
   correo: string = "";
   loaded: boolean = false;
+  nombre: string = "";
   usuario: UserModel[]=[];
   viajes: any[]=[];
 
@@ -61,7 +62,9 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
       }
     );
     this.usuario = req.data;
+    this.nombre = this.usuario[0].nombre;
     console.log("DATA INICIO USUARIO ", this.usuario);
+    console.log("Nombre usuario ", this.nombre);
   }
 
 
@@ -129,7 +132,7 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
   }
 
   async logout(){
-    const confirmar = await this.helper.showConfirm("Esta seguro que desea cerrar sesion?");
+    const confirmar = await this.helper.showConfirm("¿Esta seguro que desea cerrar sesion?");
     if(confirmar){
       this.firebase.logout();
       this.router.navigateByUrl('/login');

@@ -48,12 +48,12 @@ export class ViajeService {
     }
   }
 
-  async actualizarEstadoViaje(p_id: number, p_id_estado: number, token: string) {
+  async actualizarEstadoViaje(data: dataBodyActualizarViaje) {
     try {
       const body = {
-        p_id,
-        p_id_estado,
-        token
+        p_id: data.p_id,
+        p_id_estado: data.p_id_estado,
+        token:  data.token
       };
 
       const response = await lastValueFrom(this.http.post<any>(environment.apiUrl + 'viaje/actualiza_estado_viaje', body));
@@ -91,4 +91,10 @@ interface dataGetViaje {
   p_nombre_proyecto: string;
   p_id: number;
   token: string;
+}
+
+interface dataBodyActualizarViaje {
+  p_id_estado: number;
+  p_id: number;
+  token?: string;
 }

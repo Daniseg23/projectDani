@@ -85,12 +85,17 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
     }
   }
 
-  async actualizarViaje(id_viaje: number, id_estado: number) {
+  async actualizarViaje(id_viaje: number, id_estado_viaje: number) {
+    const dataStorage = await this.storage.obtenerStorage();
+    const token = dataStorage[0].token;
+    
     try {
-      const dataStorage = await this.storage.obtenerStorage();
-      const token = dataStorage[0].token;
-
-      const response = await this.viajeService.actualizarEstadoViaje(id_viaje, id_estado, token);
+      const response = await this.viajeService.actualizarEstadoViaje(
+        {
+          p_id: id_viaje,
+          p_id_estado: id_estado_viaje,
+          token: token
+        });
       console.log('Viaje actualizado:', response);
 
       // Recargar los viajes después de actualizar uno

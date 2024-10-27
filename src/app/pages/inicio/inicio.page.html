@@ -4,49 +4,59 @@
   <ion-router-outlet id="main-content"></ion-router-outlet>
   <ion-header>
     <ion-toolbar>
-      <ion-title>¡Bienvenido!</ion-title>
+      <ion-title>Menu</ion-title>
+      <ion-buttons (click)="logout()" shape="round"  slot="end" style="position: relative; right: 10px;">
+        <ion-icon name="power-outline" style="font-size: 30px; border-radius: 0px;"></ion-icon>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
+
 
   <ion-content>
     <!--Inicio de las card-->
     <div style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgb(255, 255, 255)); padding: 20px 0px;" > 
-      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
-        <ion-card style="width: 180px; height: 230px; margin: 0;" button (click)="clickFunctionPerfil()">
-          <img alt="Silhouette of mountains" src="assets/perfil.jpg" />
-          <ion-card-header>
-            <ion-card-title style="display: flex; justify-content: center">Perfil</ion-card-title>
-          </ion-card-header>
+      <ion-card class="bienvenidoCard" >
+          <img  class="circular-image" alt="Silhouette of mountains" *ngIf="usuario.length > 0" [src]="usuario[0].imagen_usuario" />
+            <ion-label class="bienvenido">¡Bienvenido!</ion-label>
+            <ion-label class="nombreUsuario">{{nombre}}</ion-label>
+      </ion-card>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 3px;">
+        <ion-card class="posicionTarjetaBoton" button (click)="clickFunctionPerfil()">
+          <img class="imagenTarjeta" alt="Silhouette of mountains" src="assets/perfil.jpg" />
+          <ion-card class="descripcionCard">
+            <ion-card-title class="nombreTarjetaBoton">Perfil
+              <ion-icon name="person-circle-outline" style="margin-left: 8px;"></ion-icon>
+            </ion-card-title>
+          </ion-card>
         </ion-card>
 
-        <ion-card style="width: 180px; height: 230px; margin: 0;" button (click)="clickFunctionViaje()">
-          <img alt="Silhouette of mountains" src="assets/viaje.png" />
-          <ion-card-header>
-            <ion-card-title style="display: flex; justify-content: center">Viaje</ion-card-title>
-          </ion-card-header>
+        <ion-card class="posicionTarjetaBoton" button (click)="clickFunctionViaje()">
+          <img class="imagenTarjeta" alt="Silhouette of mountains" src="assets/viaje.png" />
+          <ion-card class="descripcionCard">
+            <ion-card-title class="nombreTarjetaBoton">Viaje</ion-card-title>
+          </ion-card>
         </ion-card>
 
-        <ion-card style="width: 180px; height: 230px; margin: 0;" button (click)="clickFunctionVehiculo()">
-          <img alt="Silhouette of mountains" src="assets/auto.jpg" />
-          <ion-card-header>
-            <ion-card-title style="display: flex; justify-content: center">Vehiculo</ion-card-title>
-          </ion-card-header>
+        <ion-card class="posicionTarjetaBoton" button (click)="clickFunctionVehiculo()">
+          <img class="imagenTarjeta" alt="Silhouette of mountains" src="assets/auto.jpg" />
+          <ion-card class="descripcionCard">
+            <ion-card-title class="nombreTarjetaBoton">Vehiculo</ion-card-title>
+          </ion-card>
         </ion-card>
 
-        <ion-card style="width: 180px; height: 230px; margin: 0;" button (click)="clickFunctionAyuda()">
-          <img alt="Silhouette of mountains" src="assets/ayuda.jpg" />
-          <ion-card-header>
-            <ion-card-title style="display: flex; justify-content: center">Ayuda</ion-card-title>
-          </ion-card-header>
+        <ion-card class="posicionTarjetaBoton" button (click)="clickFunctionAyuda()">
+          <img class="imagenTarjeta" alt="Silhouette of mountains" src="assets/ayuda.jpg" />
+          <ion-card class="descripcionCard">
+            <ion-card-title class="nombreTarjetaBoton">Ayuda</ion-card-title>
+          </ion-card>
         </ion-card>
       </div>
     </div>
     <!--Fin las card-->
-
-    <!--INICIO Botton cerrar sesion-->
-    <div style="display: flex; justify-content: center; margin-top: 10px;">
-      <ion-button class="botonDesign" shape="round">Cerrar sesión </ion-button>
-    </div>
-    <!--FIN Botton cerrar sesion-->
-
+      <ion-card style="background-color: rgb(218, 218, 218); width: 100%; left: -4%; border-radius: 0%;">
+        <div style="font-size: 70px; font-weight: bold; color: rgb(255, 255, 255); text-align: center;">
+          UBER
+        </div>
+      </ion-card>
+    
   </ion-content>

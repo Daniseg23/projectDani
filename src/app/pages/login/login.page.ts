@@ -111,7 +111,7 @@ export class LoginPage implements OnInit {
   }
       
   registro(){
-    this.router.navigateByUrl("registro");
+    this.router.navigateByUrl("registro-user");
   }
 
     
