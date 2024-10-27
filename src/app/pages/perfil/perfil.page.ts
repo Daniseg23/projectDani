@@ -29,6 +29,8 @@ export class PerfilPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
 
   @ViewChild(IonCard, { read: ElementRef }) card: ElementRef<HTMLModElement> | undefined;
   private animation: Animation | undefined;
+locationError: boolean | undefined;;
+locationEnabled: boolean | undefined;
 
   constructor(
     private router: Router,
@@ -112,19 +114,32 @@ export class PerfilPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
 
   // Método para obtener la ubicación
   async getUserLocation() {
-    const status = await Network.getStatus();
-
-    if (!status.connected) {
-      console.log("No hay conexión a Internet.");
-      return;
-    }
-
-    this.userLocation = await this.geolocationService.getCurrentPosition();
-
+    try {
+      const status = await Network.getStatus();
+      if (!status.connected) {
+        console.log("No hay conexión a Internet.");
+        this.locationError = true;
+        return;
+      }
+  
+      this.locationEnabled = await this.geolocationService.isLocationEnabled();
+      if (!this.locationEnabled) {
+        this.locationError = true;
+        console.log("La ubicación está desactivada.");
+        return;
+      }
+  
+      this.userLocation = await this.geolocationService.getCurrentPosition();
     if (this.userLocation) {
       console.log('Ubicación del usuario:', this.userLocation);
+      this.locationError = false;
     } else {
       console.log('No se pudo obtener la ubicación.');
+      this.locationError = true;
+    }
+  } catch (error) {
+    console.log('Error al obtener la ubicación:', error);
+    this.locationError = true;
     }
   }
 }

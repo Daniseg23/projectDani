@@ -24,6 +24,8 @@ import { GeolocationService } from 'src/app/services/geolocation.service';
 export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave{
 
   userLocation: { lat: number, lng: number } | null = null;
+  locationEnabled: boolean = false;
+  locationError: boolean = false;
   
   correo: string = "";
   loaded: boolean = false;

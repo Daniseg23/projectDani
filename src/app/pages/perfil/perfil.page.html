@@ -93,11 +93,21 @@
               
               <!-- Ubicación del usuario -->
               <div class="location-container">
-                <div *ngIf="userLocation" class="location-info">
+                <h3>Ubicación actual</h3>
+                
+                <!-- Si hay un error con la ubicación, muestra un mensaje -->
+                <div *ngIf="locationError" class="error-message">
+                  <p>Activa los permisos de ubicación para ver tu posición actual.</p>
+                </div>
+              
+                <!-- Mostrar la ubicación si está disponible -->
+                <div *ngIf="userLocation && !locationError" class="location-info">
                   <p>Latitud: <span class="location-value">{{ userLocation.lat }}</span></p>
                   <p>Longitud: <span class="location-value">{{ userLocation.lng }}</span></p>
                 </div>
-                <div *ngIf="!userLocation" class="loading-info">
+              
+                <!-- Mostrar un mensaje de carga si la ubicación no está disponible y no hay error -->
+                <div *ngIf="!userLocation && !locationError" class="loading-info">
                   <p>Obteniendo ubicación...</p>
                 </div>
               </div>
