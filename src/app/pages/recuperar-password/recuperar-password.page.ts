@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
@@ -8,15 +9,31 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 })
 export class RecuperarPasswordPage implements OnInit {
 
-  correo: string= "";
+  correo: string = "";
 
-  constructor(private firebase:FirebaseService) { }
+  constructor(private firebase: FirebaseService, private alertController: AlertController) { }
 
   ngOnInit() {
   }
 
-  registro(){
-    this.firebase.resetPassWord(this.correo);
+  async registro() {
+    // Llama al método resetPassWord y espera su respuesta
+    const response = await this.firebase.resetPassWord(this.correo);
+
+    // Muestra un mensaje según la respuesta
+    if (response.success) {
+      this.mostrarAlerta('Éxito', response.message);
+    } else {
+      this.mostrarAlerta('Error', response.message);
+    }
   }
 
+  async mostrarAlerta(titulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 }

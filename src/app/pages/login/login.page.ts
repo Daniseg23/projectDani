@@ -106,12 +106,12 @@ export class LoginPage implements OnInit {
 
 
 
-  resetPw(){
-    this.router.navigateByUrl("reset-password");
+  recPassword(){
+    this.router.navigateByUrl("recuperar-password");
   }
       
   registro(){
-    this.router.navigateByUrl("registro-user");
+    this.router.navigateByUrl("registro");
   }
 
     

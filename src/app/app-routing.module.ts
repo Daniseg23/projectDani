@@ -20,10 +20,12 @@ const routes: Routes = [
 
   {
     path: 'login',
+    canActivate:[AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'inicio',
+    canActivate:[AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   },
   {
@@ -78,10 +80,6 @@ const routes: Routes = [
     path: 'viaje-listar',
     canActivate: [AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/viaje-listar/viaje-listar.module').then( m => m.ViajeListarPageModule)
-  },
-  {
-    path: '**',
-    loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
   },
 
 ];

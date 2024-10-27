@@ -22,11 +22,17 @@ export class FirebaseService {
     return await this.fire.createUserWithEmailAndPassword(email,contrasena);
   }
   
-  async resetPassWord(email:string){
-    const request = await this.fire.sendPasswordResetEmail(email);
+  async resetPassWord(email: string) {
+    try {
+      await this.fire.sendPasswordResetEmail(email);
+      return { success: true, message: 'Correo de recuperación enviado exitosamente.' };
+    } catch (error: any) {
+      return { success: false, message: error.message }; // Retorna el mensaje de error
+    }
   }
 
   async logout(){
     await this.fire.signOut();
   }
+  
 }
