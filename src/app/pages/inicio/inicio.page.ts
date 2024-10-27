@@ -12,8 +12,9 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UserModel } from 'src/app/models/usuario';
 import { ViajeService } from 'src/app/services/viaje.service';
 import { HelperService } from 'src/app/services/helper.service';
-import { GeolocationService } from 'src/app/services/geolocation.service';
 import { Network } from '@capacitor/network';
+import { GeolocationService } from 'src/app/services/geolocation.service';
+
 
 @Component({
   selector: 'app-inicio',
@@ -94,8 +95,6 @@ export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWill
       this.loaded = true;
     }, 4000);
 
-    // Obtener ubicación del usuario al cargar
-    this.getUserLocation();
   }
 
   // Redireccionar a otras páginas

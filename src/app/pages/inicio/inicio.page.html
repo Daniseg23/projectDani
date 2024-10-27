@@ -59,15 +59,6 @@
         UBER
       </div>
     </ion-card>
-
-    <!-- Ubicación del usuario -->
-    <div *ngIf="userLocation">
-      <p>Latitud: {{ userLocation.lat }}</p>
-      <p>Longitud: {{ userLocation.lng }}</p>
-    </div>
-    <div *ngIf="!userLocation">
-      <p>Obteniendo ubicación...</p>
-    </div>
   </ion-content>
 
 </ion-content>

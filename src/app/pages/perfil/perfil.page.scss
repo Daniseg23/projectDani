@@ -10,4 +10,33 @@
 .spaced-label {
     margin-left: 10px;
 }
+
+.location-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    background-color: #f0f4f8; /* Color de fondo suave */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+  
+  .location-info {
+    background-color: #ffffff; /* Fondo blanco para la información */
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+  
+  .location-value {
+    color: #007bff; 
+    font-weight: bold;
+}
+  
+  .loading-info {
+    color: #856404; /* Color para el mensaje de carga */
+}
   

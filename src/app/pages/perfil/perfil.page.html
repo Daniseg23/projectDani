@@ -90,6 +90,17 @@
                 </ion-card>
                 <!--Fin de ion-card con opciones-->
               </div>
-              <!--Fin de las card con fondo-->
+              
+              <!-- Ubicación del usuario -->
+              <div class="location-container">
+                <div *ngIf="userLocation" class="location-info">
+                  <p>Latitud: <span class="location-value">{{ userLocation.lat }}</span></p>
+                  <p>Longitud: <span class="location-value">{{ userLocation.lng }}</span></p>
+                </div>
+                <div *ngIf="!userLocation" class="loading-info">
+                  <p>Obteniendo ubicación...</p>
+                </div>
+              </div>
+              
           </ion-content>
         </div>
