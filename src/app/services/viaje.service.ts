@@ -35,11 +35,26 @@ export class ViajeService {
     }
   }
 
-  // Método para obtener viaje/s por token
   async obtenerViaje(parToken:string){
     try {
       const params = {
         token:parToken
+      };
+      console.log("Enviando solicitud a la API con token:", parToken); // Verificar el token
+      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'viaje/obtener',{params}));
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async obtenerViajeEnRuta(data: dataGetViaje) {
+    try {
+      const params = {
+        p_id: -1,
+        p_id_usuario: data.p_id_usuario,
+        token: data.token  // si o si necesito agregar el token en el parametro, pero se supone que si obtengo el token solo me debiese mostrar los viajes de la pagina (endpoint), gracias al id me esta mostrando todos los viajes en ruta, no el token (investigar)
+
       };
       const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'viaje/obtener',{params}));
       return response;
@@ -55,7 +70,7 @@ export class ViajeService {
         p_id_estado: data.p_id_estado,
         token:  data.token
       };
-
+      
       const response = await lastValueFrom(this.http.post<any>(environment.apiUrl + 'viaje/actualiza_estado_viaje', body));
       return response;
     } catch (error) {
@@ -82,13 +97,6 @@ interface dataBodyViaje {
 // Interface para los datos necesarios para obtener un auto
 interface dataGetViaje {
   p_id_usuario: number;
-  p_ubicacion_origen: string;
-  p_ubicacion_destino: string;
-  p_costo: number;
-  p_id_vehiculo: number;
-  p_fecha: Date;
-  p_id_estado: number;
-  p_nombre_proyecto: string;
   p_id: number;
   token: string;
 }

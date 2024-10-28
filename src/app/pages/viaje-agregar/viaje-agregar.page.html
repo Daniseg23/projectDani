@@ -61,7 +61,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Vehículo:</ion-label>
-        <ion-select [(ngModel)]="id" name="p_id">
+        <ion-select [(ngModel)]="id" name="p_id" placeholder="Elige tu vehículo" style="text-align: center;">
           <ion-select-option *ngFor="let i of vehiculo" [value]="i.id">
             {{ i.modelo }}
           </ion-select-option>

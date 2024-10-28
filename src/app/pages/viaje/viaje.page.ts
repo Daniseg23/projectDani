@@ -63,32 +63,50 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
     const id_usuario = dataStorage[0].id_usuario;
     const req = await this.vehiculoService.obtenerVehiculoViaje(dataStorage[0].token);
     this.vehiculo = req.data.filter((vehiculo: any) => vehiculo.id_usuario === id_usuario);  //Lo que hace es filtrar el array de vehiculos y me devuelve el vehiculo que tiene asignado un id_usuario que coincide con el id_usuario que tengo en el storage
-    console.log("Datos de todos los viajes:", this.vehiculo);
+    console.log("Mis vehiculos:", this.vehiculo);
   }
+
+// Carga todo los viajes de todos los usuarios, pero solo los que estan en id_estado = 1 (ya que se llama por token)
+  // async cargarViaje(){ 
+  //   let dataStorage = await this.storage.obtenerStorage();
+  //   //const id_usuario = dataStorage[0].id_usuario;
+  //   const req = await this.viajeService.obtenerViaje(dataStorage[0].token);
+  //   //this.viaje = req.data.filter((viaje: any) => viaje.id_usuario === id_usuario); //Lo que hace es filtrar el array de vehiculos y me devuelve el vehiculo que tiene asignado un id_usuario que coincide con el id_usuario que tengo en el storage
+  //   this.viaje = req.data.filter((viaje: any) => viaje.id_estado > 0);
+  //   this.viaje = req.data;
+  //   console.log("Datos de todos los viajes:", this.viaje);
+  // } catch (error: any) {
+  //   console.error("Error al cargar los datos de viaje:", error);
+  // }
 
   async cargarViaje(){ 
     let dataStorage = await this.storage.obtenerStorage();
     //const id_usuario = dataStorage[0].id_usuario;
-    const req = await this.viajeService.obtenerViaje(dataStorage[0].token);
+    const req = await this.viajeService.obtenerViajeEnRuta({
+      token: dataStorage[0].token,
+      p_id: dataStorage[0].id_usuario,
+      p_id_usuario: dataStorage[0].id_usuario
+    });
     //this.viaje = req.data.filter((viaje: any) => viaje.id_usuario === id_usuario); //Lo que hace es filtrar el array de vehiculos y me devuelve el vehiculo que tiene asignado un id_usuario que coincide con el id_usuario que tengo en el storage
-    this.viaje = req.data.filter((viaje: any) => viaje.id_usuario && viaje.id_estado > 0);
+    this.viaje = req.data.filter((viaje: any) => viaje.id_estado <= 2);
     console.log("Datos de todos los viajes:", this.viaje);
-  } catch (error: any) {
-    console.error("Error al cargar los datos de viaje:", error);
-  }
+  } 
 
   async clickAgregarViaje() {
-    if (this.vehiculo.length === 0) {
-      await this.helper.showAlert('No tienes vehículos registrados en su cuenta. Por favor, registra un vehículo antes de agregar un viaje.', 'Error');
+    const viajeEnCurso = this.viaje.some((viaje: any) => viaje.id_estado === 2);
+    if (viajeEnCurso) {
+      await this.helper.showAlert('No puedes iniciar un viaje teniendo un viaje ya iniciado.', 'Error');
+    //} else if (this.vehiculo.length === 0) {
+    //  await this.helper.showAlert('No tienes vehículos registrados en su cuenta. Por favor, registra un vehículo antes de agregar un viaje.', 'Error');
     } else {
       this.router.navigate(['/viaje-agregar']);
     }
   }
 
-  async actualizarViaje(id_viaje: number, id_estado_viaje: number) {
+  async iniciarViaje(id_viaje: number, id_estado_viaje: number) {
     const dataStorage = await this.storage.obtenerStorage();
     const token = dataStorage[0].token;
-    
+
     try {
       const response = await this.viajeService.actualizarEstadoViaje(
         {
@@ -97,11 +115,32 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
           token: token
         });
       console.log('Viaje actualizado:', response);
-
-      // Recargar los viajes después de actualizar uno
+      await this.helper.showToast("¡Has iniciado un viaje!");
       this.cargarViaje();
     } catch (error: any) {
       console.error('Error al actualizar el viaje:', error);
+    }
+  }
+
+  async finalizarViaje(id_viaje: number, id_estado_viaje: number) {
+    const confirmar = await this.helper.showConfirm("¿Esta seguro que desea finalizar el viaje?");
+    if(confirmar){
+      const dataStorage = await this.storage.obtenerStorage();
+      const token = dataStorage[0].token;
+
+      try {
+        const response = await this.viajeService.actualizarEstadoViaje(
+          {
+            p_id: id_viaje,
+            p_id_estado: id_estado_viaje,
+            token: token
+          });
+        console.log('Viaje actualizado:', response);
+        await this.helper.showToast("¡Viaje Finalizado!");
+        this.cargarViaje();
+      } catch (error: any) {
+        console.error('Error al actualizar el viaje:', error);
+      }
     }
   }
 
@@ -152,7 +191,8 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
 
   ionViewWillEnter(): void {
     console.log("view will enter");
-    this.cargarViaje();  //cada vez que se agregue un viaje desde la vista "viaje-agregar" se recargaran los viajes en al vista "viaje", como se hace en la vista "vehiculo"
+    this.cargarViaje();
+      //cada vez que se agregue un viaje desde la vista "viaje-agregar" se recargaran los viajes en al vista "viaje", como se hace en la vista "vehiculo"
     
    }
 

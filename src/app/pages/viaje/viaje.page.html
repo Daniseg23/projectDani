@@ -75,8 +75,11 @@
           </div>
         </ion-card-content>
       </div>
-      <ion-card (click)="actualizarViaje(i.id_viaje, 2)" style="position: relative; background-color: green; bottom: 21px; height: 30px; margin-left: 5px; margin-right: 5px; margin-top: 23px; border-radius: 0%;">
+      <ion-card *ngIf="i.id_estado === 1" (click)="iniciarViaje(i.id_viaje, 2)" style="position: relative; background-color: green; bottom: 21px; height: 30px; margin-left: 5px; margin-right: 5px; margin-top: 23px; border-radius: 0%;">
         <p class="estado2">REALIZAR VIAJE</p>
+      </ion-card>
+      <ion-card *ngIf="i.id_estado === 2" (click)="finalizarViaje(i.id_viaje, 3)" style="position: relative; background-color: rgb(202, 0, 0); bottom: 21px; height: 30px; margin-left: 5px; margin-right: 5px; margin-top: 23px; border-radius: 0%;">
+        <p class="estado2">FINALIZAR VIAJE</p>
       </ion-card>
     </ion-card>
     <div style="display: flex; justify-content: center; margin-top: 20px;">
