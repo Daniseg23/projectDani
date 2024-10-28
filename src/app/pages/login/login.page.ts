@@ -5,13 +5,14 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { ViewDidEnter, ViewWillEnter, ViewDidLeave, ViewWillLeave } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave {
 
   correo: string = "test2@test.cl";
   contrasena: string = "123456";
@@ -25,6 +26,7 @@ export class LoginPage implements OnInit {
               private usuarioService:UsuarioService) { }
 
   ngOnInit() {
+    
   }
 
   /*register(){
@@ -113,6 +115,23 @@ export class LoginPage implements OnInit {
   registro(){
     this.router.navigateByUrl("registro-user");
   }
+
+  ionViewDidLeave(): void {
+    console.log("view did leave");
+    
+  }
+  ionViewWillLeave(): void {
+    console.log("view will leave");
+    
+  }
+
+  ionViewDidEnter(): void {
+  }
+
+  ionViewWillEnter(): void {
+    this.firebase.logout();
+
+   }
 
     
 }
