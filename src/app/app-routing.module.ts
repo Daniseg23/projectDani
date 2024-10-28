@@ -20,7 +20,6 @@ const routes: Routes = [
 
   {
     path: 'login',
-    canActivate:[AngularFireAuthGuard], data:{authGuardPipe:RedireccionarLogin},
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {

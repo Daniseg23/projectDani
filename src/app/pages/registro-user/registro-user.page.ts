@@ -5,6 +5,7 @@ import { Camera, CameraResultType } from '@capacitor/camera';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { HelperService } from 'src/app/services/helper.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-registro-user',
@@ -25,7 +26,8 @@ export class RegistroUserPage implements OnInit {
     private usuarioService: UsuarioService,
     private helper: HelperService,
     private router: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private location: Location
   ) { }
 
   ngOnInit() {}
@@ -96,5 +98,9 @@ export class RegistroUserPage implements OnInit {
     this.correo = req.data[0].correo_electronico;
     console.log("DATA INICIO USUARIO ", this.usuario);
     console.log("DATA INICIO USUARIO ", this.usuario);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
