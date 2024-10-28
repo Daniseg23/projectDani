@@ -13,6 +13,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UserModel } from 'src/app/models/usuario';
 import { HelperService } from 'src/app/services/helper.service';
 import { VehiculoDetallesComponent } from '../modal/vehiculo-detalles/vehiculo-detalles.component';
+import { Location } from '@angular/common';
 //import { Vehiculo } from 'src/app/services/servicios.service'; //ESTO FUE CLAVE PARA QUE FUNCIONARA, Por que importar vehiculo aparte si ya estoy importando todo con serviciosService?
 
 
@@ -46,7 +47,8 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
               private vehiculoService:VehiculoService,
               private storage:StorageService,
               private helper:HelperService,
-              private modalCtrl: ModalController
+              private modalCtrl: ModalController,
+              private location: Location
   ) { }
 
   async cargarVehiculo(){
@@ -128,7 +130,7 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
 
   ionViewWillEnter(): void {
     console.log("view will enter");
-    this.cargarVehiculo()
+    this.cargarVehiculo()  //Llamo a la función cargarVehiculo para que se ejecute al entrar a la página, es mejor que llamarla en el ngOnInit, ya que el ngOnInit se ejecuta una sola vez al cargar la página y no se ejecuta cada vez que se entra a la página nuevamente, en cambio el ionViewWillEnter se ejecuta cada vez que se entra a la página, por lo que es mejor para cargar datos que pueden cambiar, 
     
    }
 
@@ -151,6 +153,10 @@ export class VehiculoPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWi
 
   clickInicio(){
     this.router.navigate(['/inicio'])
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

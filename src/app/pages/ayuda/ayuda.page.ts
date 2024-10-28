@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnimationController, Animation, IonModal } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-ayuda',
@@ -10,7 +11,7 @@ import { AnimationController, Animation, IonModal } from '@ionic/angular';
 export class AyudaPage implements OnInit {
   @ViewChild('modal', { static: true }) modal: IonModal | undefined;
 
-  constructor(private router: Router, private animationCtrl: AnimationController) {}
+  constructor(private router: Router, private animationCtrl: AnimationController, private location: Location) {}
 
   ngOnInit() {
     this.setModalAnimations();
@@ -75,5 +76,9 @@ export class AyudaPage implements OnInit {
 
   clickInicio() {
     this.router.navigate(['/inicio']);
+  }
+  
+  goBack() {
+    this.location.back();
   }
 }

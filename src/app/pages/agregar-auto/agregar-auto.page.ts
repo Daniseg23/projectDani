@@ -6,6 +6,7 @@ import { HelperService } from 'src/app/services/helper.service'; // Para mostrar
 import { StorageService } from 'src/app/services/storage.service'; // Para gestionar el almacenamiento local
 import { Router } from '@angular/router';
 import { Camera, CameraResultType } from '@capacitor/camera'; // Para tomar fotos
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-agregar-auto',
@@ -27,6 +28,7 @@ export class AgregarAutoPage implements OnInit {
     private helper: HelperService, // Para mostrar alertas
     private router: Router, // Para la navegación
     private storageService: StorageService, // Para obtener el token almacenado
+    private location: Location
   ) { }
 
   @ViewChild(IonCard, { read: ElementRef }) card: ElementRef<HTMLModElement> | undefined;
@@ -126,6 +128,9 @@ ionViewDidEnter(): void {
     this.router.navigate(['/inicio'])
   }
 
+  goBack() {
+    this.location.back();
+  }
 
   /*registrarVehiculo() {
     const nuevoVehiculo = {

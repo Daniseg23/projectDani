@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ViajeService } from 'src/app/services/viaje.service'; 
 import { HelperService } from 'src/app/services/helper.service'; // Para mostrar alertas
@@ -27,7 +28,8 @@ export class ViajeAgregarPage implements OnInit {
     private helper: HelperService, // Para mostrar alertas
     private router: Router, // Para la navegación
     private storageService: StorageService, // Para obtener el token almacenado
-    private vehiculoService: VehiculoService
+    private vehiculoService: VehiculoService,
+    private location: Location
   ) { }
 
   ngOnInit() { 
@@ -99,5 +101,9 @@ export class ViajeAgregarPage implements OnInit {
 
   clickInicio(){
     this.router.navigate(['/inicio'])
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

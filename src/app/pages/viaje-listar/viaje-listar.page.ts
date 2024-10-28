@@ -35,4 +35,6 @@ export class ViajeListarPage implements OnInit {
     this.router.navigate(['/inicio'])
   }
 
+
+
 }

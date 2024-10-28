@@ -12,6 +12,7 @@ import { UserModel } from 'src/app/models/usuario';
 import { HelperService } from 'src/app/services/helper.service';
 import { GeolocationService } from 'src/app/services/geolocation.service';
 import { Network } from '@capacitor/network';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-perfil',
@@ -40,7 +41,8 @@ locationEnabled: boolean | undefined;
     private usuarioService: UsuarioService,
     private storage: StorageService,
     private helper: HelperService,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
+    private location: Location
   ) {}
 
   async cargarUsuario() {
@@ -142,4 +144,9 @@ locationEnabled: boolean | undefined;
     this.locationError = true;
     }
   }
+
+  goBack() {
+    this.location.back();
+  }
+  
 }

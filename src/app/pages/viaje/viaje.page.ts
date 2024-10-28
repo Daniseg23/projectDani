@@ -13,6 +13,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { UserModel } from 'src/app/models/usuario';
 import { HelperService } from 'src/app/services/helper.service';
 import { VehiculoService } from 'src/app/services/vehiculo.service';
+import { Location } from '@angular/common';
 //import { VehiculoDetallesComponent } from '../modal/vehiculo-detalles/vehiculo-detalles.component';
 //import { Vehiculo } from 'src/app/services/servicios.service'; //ESTO FUE CLAVE PARA QUE FUNCIONARA, Por que importar vehiculo aparte si ya estoy importando todo con serviciosService?
 
@@ -46,7 +47,8 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
               private storage:StorageService,
               private helper:HelperService,
               private modalCtrl: ModalController,
-              private vehiculoService:VehiculoService
+              private vehiculoService:VehiculoService,
+              private location: Location
   ) { }
 
 
@@ -225,6 +227,10 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
 
   clickVehiculoListar() {
     this.router.navigate(['/viaje-listar']);
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
