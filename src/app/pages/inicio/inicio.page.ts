@@ -21,6 +21,7 @@ import { GeolocationService } from 'src/app/services/geolocation.service';
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
 })
+
 export class InicioPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave{
 
   userLocation: { lat: number, lng: number } | null = null;

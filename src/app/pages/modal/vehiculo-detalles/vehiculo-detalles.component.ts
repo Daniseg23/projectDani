@@ -8,6 +8,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class VehiculoDetallesComponent {
   @Input() vehiculo: any;
+  
 
 
   constructor(private modalController: ModalController) {}

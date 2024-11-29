@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ViewDidEnter, ViewWillEnter, ViewDidLeave, ViewWillLeave } from '@ionic/angular';
 
 import { ElementRef, ViewChildren, ViewChild } from '@angular/core';
@@ -40,7 +40,6 @@ export class ViajePage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
 
 
   constructor(private router:Router,
-              private activateRoute:ActivatedRoute,
               private animationCtrl: AnimationController,
               private firebase:FirebaseService,
               private viajeService:ViajeService,

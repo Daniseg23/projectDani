@@ -14,16 +14,21 @@ import { environment } from 'src/environments/environment';
 import { VehiculoDetallesComponent } from './pages/modal/vehiculo-detalles/vehiculo-detalles.component';
 import { FormsModule } from '@angular/forms';
 import { GeolocationService } from 'src/app/services/geolocation.service';
+import { CommonModule } from '@angular/common'
+
 
 @NgModule({
   declarations: [AppComponent, VehiculoDetallesComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+
+  
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

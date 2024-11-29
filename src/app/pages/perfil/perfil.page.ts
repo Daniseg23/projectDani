@@ -14,6 +14,7 @@ import { GeolocationService } from 'src/app/services/geolocation.service';
 import { Network } from '@capacitor/network';
 import { Location } from '@angular/common';
 
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.page.html',
