@@ -6,6 +6,7 @@ import { HelperService } from 'src/app/services/helper.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ViewDidEnter, ViewWillEnter, ViewDidLeave, ViewWillLeave } from '@ionic/angular';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
               private firebase:FirebaseService, 
               private helper:HelperService,
               private storage:StorageService,
+              private cdr: ChangeDetectorRef,
               private usuarioService:UsuarioService) { }
 
   ngOnInit() {
@@ -124,8 +126,15 @@ export class LoginPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
     console.log("view will leave");
     
   }
-
+  isLoaded = false;
   ionViewDidEnter(): void {
+    setTimeout(() => {
+      this.isLoaded = true;
+  }, 100);
+  }
+
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
   }
 
   ionViewWillEnter(): void {
