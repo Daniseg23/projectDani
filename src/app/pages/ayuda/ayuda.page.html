@@ -68,8 +68,8 @@
       </div>
 
       <!-- Contenedor para centrar el botón -->
-      <div style="display: flex; justify-content: center; align-items: center; height: 30%; position: relative;">
-        <ion-button id="modal-trigger" style="position: absolute; bottom: 20px;">Ubicación</ion-button>
+      <div style="display: flex; justify-content: center; align-items: center; height: 10%; position: relative;">
+        <ion-button id="modal-trigger" style="position: absolute; bottom: 20px; --background: linear-gradient(rgba(0, 0, 0, 0.5), black);">Ubicación</ion-button>
       </div>
 
       <!-- Aquí integramos el contenido del modal -->
@@ -79,7 +79,7 @@
             <ion-toolbar>
               <ion-title>Ubicación</ion-title>
               <ion-buttons slot="end">
-                <ion-button (click)="closeModal()">Close</ion-button>
+                <ion-button (click)="closeModal()">Cerrar</ion-button>
               </ion-buttons>
             </ion-toolbar>
           </ion-header>

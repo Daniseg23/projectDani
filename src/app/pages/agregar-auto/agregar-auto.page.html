@@ -72,12 +72,17 @@
         <ion-input label="Tipo Combustible:" [(ngModel)]="tipo_combustible" name="tipo_combustible"></ion-input>
       </ion-item>
 
-      <img *ngIf="imagen" [src]="imagen.src" height="100" width="100" alt="">
+      <img src="assets/img/catdog.jpg" alt="" style="margin: 10px 0;">
         
 
-      <ion-button (click)="takePhoto()">
-        <ion-icon style="margin-right: 10px;" name="camera-outline"></ion-icon>
-        Tomar foto
+      <ion-button fill="clear" (click)="takePhoto()" style="flex: 1; padding: 0px; font-size: 20px; display: flex; align-items: center; justify-content: center;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+          <ion-icon name="camera-outline" style="margin-bottom: 5px; color: black;"></ion-icon>
+          <span style="text-decoration: underline; margin-bottom: 5px;">
+            Adjuntar foto
+          </span>
+          <img *ngIf="imagen" [src]="imagen.src" height="100" width="100" alt="" style="border-radius: 4px;">
+        </div>
       </ion-button>
     </ion-list>
   </ion-card>

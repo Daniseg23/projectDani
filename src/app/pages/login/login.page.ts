@@ -15,8 +15,8 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class LoginPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillLeave, ViewDidLeave {
 
-  correo: string = "test2@test.cl";
-  contrasena: string = "123456";
+  correo: string = "gaben@valvesoftware.com";
+  contrasena: string = "1234567";
   token: string ="";
   usuario: UserModel[]=[];
 
@@ -133,9 +133,6 @@ export class LoginPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewWillL
   }, 100);
   }
 
-  ngAfterViewInit() {
-    this.cdr.detectChanges();
-  }
 
   ionViewWillEnter(): void {
     this.firebase.logout();
